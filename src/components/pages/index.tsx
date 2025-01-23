@@ -13,9 +13,14 @@ function IndexPage() {
         <img src="OXd_0T.png" alt="squid game" width={300} height={200} />
         <h1 className="text-2xl text-white font-medium my-2 sm:my-4">Squid Game Online</h1>
         <Link to={"/red-light-green-light"}>
-        <Button color="primary" size="lg" className="text-white text-2xl font-medium">
-          Play Now <CirclePlay />
-        </Button>
+          <Button color="primary" size="lg" className="text-white text-2xl font-medium">
+            Play Now <CirclePlay />
+          </Button>
+          <audio src="./music/start-day.mp3"
+           autoPlay
+           loop
+          >
+          </audio>
         </Link>
       </div>
     </div>
