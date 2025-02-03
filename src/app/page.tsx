@@ -6,7 +6,8 @@ import PinkSoldier from "@/components/sounds/PinkSoldier";
 export default function Home() {
  
   return (
-    <div className="w-full h-screen bg-pink-400 place-content-center">
+      <div className="w-full h-screen bg-pink-400 place-content-center">
+        <PinkSoldier/>
       <div
         className="place-content-center place-items-center place-self-center sm:min-h-96 rounded sm:w-[500px] w-[90%] bg-slate-400 p-6"
       >
@@ -16,8 +17,8 @@ export default function Home() {
          <Button color="secondary" size="lg" className="">
           Play now
           </Button></Link>
-        <PinkSoldier/>
+        
       </div>
-   </div>
+      </div>
   )
 }

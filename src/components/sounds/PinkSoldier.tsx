@@ -12,7 +12,7 @@ const PinkSoldier = () => {
       loop: true, // Loop the background music
       autoplay: true, // Automatically play the music when the page loads
     });
-
+ sound.play();
     // Cleanup
     return () => {
       sound.unload(); // Unload the sound when the component unmounts
