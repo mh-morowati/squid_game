@@ -1,7 +1,12 @@
+import Image from 'next/image';
 
 
 const Doll = () => {
-    return (<div className="bg-yellow-400 absolute top-[10px] w-16 h-16 rounded-full left-1/2">doll</div>
+    return (<>
+    <div className="absolute  h-20  left-1/2">
+       <Image src={'/doll.png'} alt={'doll'} width={150} height={150}/>
+        </div>
+    </>
     )
 }
 
