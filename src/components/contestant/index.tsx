@@ -1,3 +1,4 @@
+import Image from 'next/image';
 
 
 type Props = {
@@ -10,10 +11,18 @@ type Props = {
 const Contestant = ({x,y,name,gameOver}: Props) =>{
     
     return(<div 
-        className=
-  "absolute top-[600px] bg-blue-600 w-14 h-14 rounded-full flex justify-center items-center text-center "
+        className="absolute"
   style={{left: `${x}px`,top: `${y}px`}}
-        >{name}</div>)
+    >
+        <div className="">
+            <Image src={'/player.png'} alt={'player'} width={50} height={50} />
+            <div
+                className="absolute inset-0 top-2 flex justify-center items-center text-white text-xs font-bold"
+            >
+          {name}
+        </div>
+            </div>
+    </div>)
 }
 
 export default Contestant

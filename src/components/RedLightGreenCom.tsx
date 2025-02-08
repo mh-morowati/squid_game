@@ -14,11 +14,12 @@ type ContestantType = {
 }
 
 export default function RedLightGreenCom() {
+  
   const [state, setState] = useState({})
   const constentants = useRef<ContestantType[]>([])
   const finishedConstentants = useRef<ContestantType>()
   const playerConstant = useRef<ContestantType>(
-    { x: Math.random() * (960 - 50), y: 600,name: 'player',gameOver: false , speed:2})
+    { x: Math.random() * (960 - 50), y: 660,name: 'player',gameOver: false , speed:2})
   const greenLight = useRef(true)
   const greenLightCounter = useRef(100)
   const divRef = useRef<HTMLDivElement>(null)
@@ -56,7 +57,7 @@ export default function RedLightGreenCom() {
   useEffect(() => {
     for (let i = 0; i < 50; i++) {
       constentants.current.push(
-        { x: Math.random() * (960 - 50), y: 600, name: i.toString(), gameOver: false, speed: 0.5 + Math.random() * 0.3 })
+        { x: Math.random() * (1460), y: 660, name: i.toString(), gameOver: false, speed: 0.5 + Math.random() * 0.3 })
     }
    divRef.current?.focus()
 
