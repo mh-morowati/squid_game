@@ -19,16 +19,19 @@ type ContestantType = {
 
 export default function RedLightGreenCom() {
 
-    const [gameStarted, setGameStarted] = useState(false); // Track game state
-
+    const [gameStarted, setGameStarted] = useState(false)
   const [state, setState] = useState({})
   const constentants = useRef<ContestantType[]>([])
+
   const finishedConstentants = useRef<ContestantType>()
+
   const playerConstant = useRef<ContestantType>(
-    { x: Math.random() * (960 - 50), y: 660,name: 'player',gameOver: false , speed:2})
+    { x: Math.random() * (960 - 50), y: 660, name: 'player', gameOver: false, speed: 2 })
+  
   const greenLight = useRef(true)
   const greenLightCounter = useRef(100)
   const divRef = useRef<HTMLDivElement>(null)
+
   const animationRef = useRef<number | null>(null);
   
   const render = (timeStamp: number) => {
@@ -40,13 +43,24 @@ export default function RedLightGreenCom() {
       greenLightCounter.current = 100 + Math.random() * 100
     }
 
-    if(playerConstant.current.y < 100){
+    let allFinishedOrEliminated = true; // Flag to check if all players finished
+
+    if(playerConstant.current.y < 20){
       finishedConstentants.current = playerConstant.current
     }
+
     for (let i = 0; i < 50; i++) {
-      if (constentants.current[i].y < 100) {
-        finishedConstentants.current = constentants.current[i]
+
+      if (constentants.current[i].y < 20) {
+
+        constentants.current[i].y = 20; // Stop exactly at the finish line
+        
+        // constentants.current[i].gameOver = true; // Mark as finished
+        // finishedConstentants.current = constentants.current[i]
+      } else if (!constentants.current[i].gameOver) {
+      allFinishedOrEliminated = false; // At least one contestant is still playing
       }
+      
       if (greenLight.current && !constentants.current[i].gameOver) {
         constentants.current[i].y -= constentants.current[i].speed
       } else {
@@ -57,10 +71,15 @@ export default function RedLightGreenCom() {
     }
 
     setState({})
-    if (!finishedConstentants.current) {
-    requestAnimationFrame(render)
+
+    // if (!finishedConstentants.current) {
+    // requestAnimationFrame(render)
+    // }
+    if (!allFinishedOrEliminated) {
+      requestAnimationFrame(render)
     }
   }
+
   useEffect(() => {
     for (let i = 0; i < 50; i++) {
       constentants.current.push(
@@ -71,29 +90,44 @@ export default function RedLightGreenCom() {
       requestAnimationFrame(render)
   }, [])
 
-const onkeyDown = (event: React.KeyboardEvent<HTMLDivElement> ) =>{
-  if(greenLight.current && !playerConstant.current.gameOver){
-    playerConstant.current.y -= playerConstant.current.speed
-  }else{
+const [moving, setMoving] = useState(false); // Track if player is moving
+
+const onMouseEnter = () => {
+  if (greenLight.current && !playerConstant.current.gameOver) {
+    setMoving(true); // Start moving when mouse enters button
+  } else {
     playerConstant.current.gameOver = true
   }
+};
 
+const onMouseLeave = () => {
+  setMoving(false); // Stop moving when mouse leaves button
+};
+
+useEffect(() => {
+  if (moving) {
+    const interval = setInterval(() => {
+      if (!greenLight.current) {
+        // If the light turns red while moving, game over
+        playerConstant.current.gameOver = true;
+        setMoving(false);
+      } else {
+        if (playerConstant.current.y > 20) { // Stop at y = 50 (finish line)
+          playerConstant.current.y -= playerConstant.current.speed;
+        } else {
+          playerConstant.current.y = 20; // Ensure it stays at the finish line
+          setMoving(false); // Stop moving
+        }
+      }
+    }, 50); // Adjust speed
+
+    return () => clearInterval(interval); // Clear interval when stopping
   }
-  
-   const startGame = () => {
-    setGameStarted(true);
-    constentants.current = [];
-    for (let i = 0; i < 50; i++) {
-      constentants.current.push(
-        { x: Math.random() * 1460, y: 660, name: i.toString(), gameOver: false, speed: 0.5 + Math.random() * 0.3 }
-      );
-    }
-    divRef.current?.focus();
-    animationRef.current = requestAnimationFrame(render);
-  };
+}, [moving]);
+
 
   return (
-    <div tabIndex={0} ref={divRef} onKeyDown={onkeyDown}>
+    <div tabIndex={0} ref={divRef}>
        {!gameStarted ? (
            <div className="w-full h-screen bg-pink-400 place-content-center">
         <PinkSoldier/>
@@ -102,7 +136,7 @@ const onkeyDown = (event: React.KeyboardEvent<HTMLDivElement> ) =>{
       >
         <Image src={"/SquidGame_Season1_Episode1_00_44_44_16.webp"} alt={""} width={400} height={300} />
         <h1 className="text-2xl font-medium text-white my-3">Squid Game Online</h1>
-         <Button onClick={startGame} color="secondary" size="lg" className="">
+         <Button onClick={()=> setGameStarted(true)} color="secondary" size="lg" className="">
           Start Game
           </Button>
         
@@ -118,7 +152,10 @@ const onkeyDown = (event: React.KeyboardEvent<HTMLDivElement> ) =>{
       >
         {finishedConstentants.current.name} has finish
       </div>}
-      <PlayGround>
+            <PlayGround>
+              <Button className='absolute border left-1/2 top-1/3' onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+                move
+              </Button>
         <Finish />
         <Doll />
         <Contestant x={playerConstant.current.x} y={playerConstant.current.y}
