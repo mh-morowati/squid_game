@@ -23,7 +23,7 @@ export default function RedLightGreenCom() {
   const [state, setState] = useState({})
   const constentants = useRef<ContestantType[]>([])
 
-  const finishedConstentants = useRef<ContestantType>()
+  // const finishedConstentants = useRef()
 
   const playerConstant = useRef<ContestantType>(
     { x: Math.random() * (960 - 50), y: 660, name: 'player', gameOver: false, speed: 2 })
@@ -45,9 +45,9 @@ export default function RedLightGreenCom() {
 
     let allFinishedOrEliminated = true; // Flag to check if all players finished
 
-    if(playerConstant.current.y < 20){
-      finishedConstentants.current = playerConstant.current
-    }
+    // if(playerConstant.current.y < 20){
+    //   finishedConstentants.current = playerConstant.current
+    // }
 
     for (let i = 0; i < 50; i++) {
 
@@ -145,13 +145,7 @@ useEffect(() => {
       ) : (
           <>
            <DollMusic greenLight={greenLight.current} greenLightDuration={greenLightCounter.current} />
-      {finishedConstentants.current && <div
-        className='absolute z-10 top-0 right-0 left-0 
-       bottom-0 bg-[rgba(195,109,109,0.7)] grid items-center
-       flex justify-center'
-      >
-        {finishedConstentants.current.name} has finish
-      </div>}
+     
             <PlayGround>
               <Button className='absolute border left-1/2 top-1/3' onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
                 move
