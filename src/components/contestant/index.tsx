@@ -13,14 +13,10 @@ type Props = {
 const Contestant = ({ x, y, name, gameOver }: Props) => {
     
     const [visible, setVisible] = useState(true);
-    
-
+const respomsiveWidth = 
     useEffect(() => {
       
         if (gameOver) {
-
-            if (y <= 50) return; // ✅ If player crossed finish line, ignore elimination
-
                 // Play bullet sound effect
             const bulletSound = new Audio('/sounds/MLG sniper sound effect.mp3');
             bulletSound.play();
@@ -35,7 +31,8 @@ const Contestant = ({ x, y, name, gameOver }: Props) => {
     return(   <AnimatePresence>
             <motion.div
                 className="absolute"
-                style={{ left: `${x}px`, top: `${y}px` }}
+            style={{
+                left: `${x}px`, top: `${y}px` }}
                 initial={{ opacity: 1, scale: 1 }}
                 animate={gameOver ? { scale: [1, 1.5, 0], opacity: [1, 0.5, 0] } : {}}
                 transition={{ duration: 1, ease: 'easeOut' }}
@@ -44,12 +41,15 @@ const Contestant = ({ x, y, name, gameOver }: Props) => {
                 <div className="">
                     {gameOver ? (
                         // Explosion animation when the player is eliminated
-                        <Image src={'/kill-blood.png'} alt={'explosion'} width={50} height={50} />
+                        <Image src={'/kill-blood.png'} alt={'explosion'} width={50} height={50} className='max-sm:w-10 max-sm:h-12' />
                     ) : (
                         // Normal player image
-                        <Image src={'/player.png'} alt={'player'} width={50} height={50} />
+                        <Image src={'/player.png'} alt={'player'} width={50} height={50} className='max-sm:w-10 max-sm:h-12' />
                     )}
-                    <div className="absolute inset-0 top-2 flex justify-center items-center text-white text-xs font-bold">
+                <div
+                    className="absolute inset-0 top-2 flex justify-center 
+                    items-center text-white text-xs md:font-bold max-md:text-[6px]"
+                >
                         {name}
                     </div>
                 </div>
