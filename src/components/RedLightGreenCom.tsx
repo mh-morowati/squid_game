@@ -8,6 +8,7 @@ import DollMusic from './sounds/DollMusic'
 import Image from "next/image"
 import {Button, ButtonGroup} from "@heroui/button"
 import PinkSoldier from "@/components/sounds/PinkSoldier"
+import { InputOtp } from "@heroui/input-otp"
 
 type ContestantType = {
   x: number
@@ -21,7 +22,7 @@ export default function RedLightGreenCom() {
 
     const [gameStarted, setGameStarted] = useState(false)
   const [state, setState] = useState({})
-  const [timeLeft, setTimeLeft] = useState(30); // Set game time (e.g., 30 seconds)
+  const [timeLeft, setTimeLeft] = useState(60); // Set game time (e.g., 30 seconds)
   const constentants = useRef<ContestantType[]>([])
 
   const finishedConstentants = useRef<ContestantType>()
@@ -44,8 +45,7 @@ export default function RedLightGreenCom() {
     if (greenLightCounter.current < 0) {
       greenLight.current = !greenLight.current
 
-      greenLightCounter.current = 100 + Math.random() * 150
-      alert(greenLightCounter.current)
+      greenLightCounter.current = 120 + Math.random() * 100
     }
 
     let allFinishedOrEliminated = true // Flag to check if all players finished
@@ -110,6 +110,12 @@ export default function RedLightGreenCom() {
   
 
   useEffect(() => {
+
+      greenLight.current = true; // ✅ Ensure game starts with green light
+    
+     // ✅ Set a random green light duration (between 2s and 4s, assuming 60 FPS)
+  greenLightCounter.current = Math.floor(120 + Math.random() * 120); 
+    
     for (let i = 0; i < 50; i++) {
       constentants.current.push(
         {
@@ -168,7 +174,7 @@ useEffect(() => {
          sm:min-h-96 rounded sm:w-[500px] w-[90%] bg-slate-400 p-6"
       >
             <Image
-              src={"/SquidGame_Season1_Episode1_00_44_44_16.webp"}
+              src={"/squid-game-start.jpg"}
               alt={""}
               width={400}
               height={300}
@@ -197,7 +203,7 @@ useEffect(() => {
         {finishedConstentants.current.name} has finish
       </div>}
             <PlayGround>
-              <h1 className='absolute left-1/2 sm:text-2xl max-sm:left-1/3'>
+              <h1 className='absolute left-1/2 sm:text-2xl max-sm:left-1/3 bg-black text-red-600 p-1 rounded-lg'>
                 {timeLeft}
               </h1>
               <Button 

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 
 type Props = {
@@ -12,36 +12,53 @@ type Props = {
 
 const Contestant = ({ x, y, name, gameOver }: Props) => {
     
-    const [visible, setVisible] = useState(true);
-const respomsiveWidth = 
+    const [isDead, setIsDead] = useState(false)
+ 
     useEffect(() => {
       
         if (gameOver) {
                 // Play bullet sound effect
             const bulletSound = new Audio('/sounds/MLG sniper sound effect.mp3');
             bulletSound.play();
-
-            // Remove player after explosion animation
-            setTimeout(() => setVisible(false), 1000);
+  // Set the player to a "dead" state
+            setIsDead(true)
         }
     }, [gameOver]);
 
-    if (!visible) return null; // Hide the player after explosion
     
-    return(   <AnimatePresence>
-            <motion.div
+    return(<motion.div
                 className="absolute"
             style={{
                 left: `${x}px`, top: `${y}px` }}
-                initial={{ opacity: 1, scale: 1 }}
-                animate={gameOver ? { scale: [1, 1.5, 0], opacity: [1, 0.5, 0] } : {}}
+                initial={{ opacity: 1, scale: 1}}
+        animate={
+            isDead
+                ? {
+                    scale: [1, 1.5, 1],
+                    opacity: 1
+                }
+                : {}
+        }
                 transition={{ duration: 1, ease: 'easeOut' }}
-                exit={{ opacity: 0 }} // Fade out when removed
             >
                 <div className="">
-                    {gameOver ? (
-                        // Explosion animation when the player is eliminated
-                        <Image src={'/kill-blood.png'} alt={'explosion'} width={50} height={50} className='max-sm:w-10 max-sm:h-12' />
+                    {isDead ? (
+                <>
+                   <Image
+                            src={'/player.png'}
+                            alt={'player'}
+                            width={50}
+                            height={50}
+                            className='max-sm:w-10 max-sm:h-12 rotate-45' // Rotate the player image
+                        />
+                        <Image
+                            src={'/kill-blood.png'}
+                            alt={'blood'}
+                            width={50}
+                            height={50}
+                            className='max-sm:w-10 max-sm:h-12 absolute top-0 left-0'
+                    />
+                </>
                     ) : (
                         // Normal player image
                         <Image src={'/player.png'} alt={'player'} width={50} height={50} className='max-sm:w-10 max-sm:h-12' />
@@ -53,8 +70,7 @@ const respomsiveWidth =
                         {name}
                     </div>
                 </div>
-            </motion.div>
-        </AnimatePresence>)
+            </motion.div>)
 }
 
 export default Contestant
