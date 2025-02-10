@@ -44,7 +44,8 @@ export default function RedLightGreenCom() {
     if (greenLightCounter.current < 0) {
       greenLight.current = !greenLight.current
 
-      greenLightCounter.current = 120 + Math.random() * 200
+      greenLightCounter.current = 100 + Math.random() * 150
+      alert(greenLightCounter.current)
     }
 
     let allFinishedOrEliminated = true // Flag to check if all players finished
