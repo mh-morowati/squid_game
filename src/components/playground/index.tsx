@@ -4,8 +4,10 @@ type Props = {
 
 const PlayGround = ({children}: Props) => {
     return (<div 
-        className="bg-orange-300 h-[100vh] w-[100vw] absolute">
-            {children}
+        className="bg-orange-300 h-[100vh] w-[100vw] absolute"
+    >
+        {children}
+        
             </div>
     )
 }

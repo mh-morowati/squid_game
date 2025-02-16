@@ -1,6 +1,7 @@
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+
+import Image from 'next/image'
+import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
 
 
 type Props = {
@@ -17,13 +18,14 @@ const Contestant = ({ x, y, name, gameOver }: Props) => {
     useEffect(() => {
       
         if (gameOver) {
+
                 // Play bullet sound effect
-            const bulletSound = new Audio('/sounds/MLG sniper sound effect.mp3');
-            bulletSound.play();
+            const bulletSound = new Audio('/sounds/MLG sniper sound effect.mp3')
+            bulletSound.play()
   // Set the player to a "dead" state
             setIsDead(true)
         }
-    }, [gameOver]);
+    }, [gameOver])
 
     
     return(<motion.div
@@ -61,7 +63,13 @@ const Contestant = ({ x, y, name, gameOver }: Props) => {
                 </>
                     ) : (
                         // Normal player image
-                        <Image src={'/player.png'} alt={'player'} width={50} height={50} className='max-sm:w-10 max-sm:h-12' />
+                    <Image
+                        src={'/player.png'}
+                         alt={'player'}
+                         width={50}
+                         height={50}
+                         className='max-sm:w-10 max-sm:h-12'
+                         />
                     )}
                 <div
                     className="absolute inset-0 top-2 flex justify-center 

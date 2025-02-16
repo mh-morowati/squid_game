@@ -1,19 +1,20 @@
-import { Howl } from 'howler';
-import { useEffect, useRef } from 'react';
+import { Howl } from 'howler'
+import { useEffect, useRef } from 'react'
 
 type GameAudioProps = {
-  greenLight: boolean;
-   greenLightDuration: number; // Add duration as a prop
-};
+  greenLight: boolean
+   greenLightDuration: number
+}
 
 const DollMusic = ({ greenLight,greenLightDuration }: GameAudioProps) => {
 
      const greenLightSound = useRef<Howl | null>(null);
 
   useEffect(() => {
+
     if (!greenLightSound.current) {
       greenLightSound.current = new Howl({
-        src: ['/sounds/SQUAD GAME OST -  arosak (320).mp3'], // Replace with actual file path
+        src: ['/sounds/SQUAD GAME OST -  arosak (320).mp3'],
         volume: 0.5,
         loop: false, // Prevent looping, so it cuts off when red light happens
         rate: 1, // Default speed
@@ -21,24 +22,25 @@ const DollMusic = ({ greenLight,greenLightDuration }: GameAudioProps) => {
     }
 
     if (greenLight) {
+
           // Set playback speed based on green light duration (shorter = faster)
       const minDuration = 100; // Minimum duration
       const maxDuration = 200; // Maximum duration
-      const speed = 1 + (1 * (1 - (greenLightDuration - minDuration) / (maxDuration - minDuration)));
+      const speed = 1 + (1 * (1 - (greenLightDuration - minDuration) / (maxDuration - minDuration)))
       
-      greenLightSound.current.rate(speed);
+      greenLightSound.current.rate(speed)
       
-      greenLightSound.current.play();
+      greenLightSound.current.play()
     } else {
-      greenLightSound.current.stop(); // Stop completely on red light
+      greenLightSound.current.stop() // Stop completely on red light
     }
 
     return () => {
-      greenLightSound.current?.stop(); // Ensure it stops when unmounting
+      greenLightSound.current?.stop() // Ensure it stops when unmounting
     };
-  }, [greenLight]);
+  }, [greenLight])
 
-  return null;
+  return null
 }
 
 export default DollMusic
