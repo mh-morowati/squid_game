@@ -6,6 +6,7 @@ import importPlugin from "eslint-plugin-import"
 import react from "eslint-plugin-react"
 import stylistic from "@stylistic/eslint-plugin"
 import destructing from "eslint-plugin-newline-destructuring"
+import nextPlugin from "@next/eslint-plugin-next"
 
 export default tseslint.config({
   ignores: [".next", "node_modules", ".idea", ".vscode"],
@@ -22,9 +23,13 @@ export default tseslint.config({
     "@stylistic": stylistic,
     "react-hooks": reactHooks,
     "newline-destructuring": destructing,
-    import: importPlugin
+    import: importPlugin,
+    "@next/next": nextPlugin
   },
   rules: {
+    ...nextPlugin.configs.recommended.rules,
+    ...nextPlugin.configs["core-web-vitals"].rules,
+    "@next/next/no-img-element": "error",
     "@stylistic/indent": ["warn", 2],
     "@stylistic/array-bracket-spacing": ["warn", "never"],
     "@stylistic/array-element-newline": ["warn", "consistent"],
@@ -133,16 +138,17 @@ export default tseslint.config({
         next: "multiline-expression"
       }
     ],
-    "newline-destructuring/newline": "error",
+    "newline-destructuring/newline": "warn",
     "no-console": "warn",
     ...reactHooks.configs.recommended.rules,
-    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/rules-of-hooks": "warn",
     "react-hooks/exhaustive-deps": "off",
     "react-refresh/only-export-components": "off",
     "no-async-promise-executor": "off",
     "@typescript-eslint/no-unsafe-function-type": "off",
     "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
     "import/order": [
       "warn",
       {

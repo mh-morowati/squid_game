@@ -25,10 +25,10 @@ const Finish = (props: Props) => {
             <Modal isOpen={true} size="full">
                 
                 <ModalContent>
-                     <Image src={"/loser-image-g.jpg"} alt={""} fill/>
-    <Button onClick={() => window.location.reload()} className="mt-4">
-      Restart Game
-    </Button>
+                     <Image src={"/lose-game123-ezgif.com-gif-to-webp-converter.webp"} alt={""} fill/>
+                    <Button onClick={() => window.location.reload()} className="mt-4">
+                        Restart Game
+                    </Button>
                 </ModalContent>
                
   </Modal>

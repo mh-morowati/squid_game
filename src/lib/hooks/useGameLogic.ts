@@ -6,12 +6,12 @@ type ContestantType = {
   name: string
   gameOver: boolean
   speed: number
+  winner: boolean
 }
 
 export const useGameLogic = () => {
 
   const [gameStarted, setGameStarted] = useState(false)
-  const [state, setState] = useState({})
   const [timeLeft, setTimeLeft] = useState(60)
   const [allFinished, setAllFinished] = useState(false)
   const greenLight = useRef(true)
@@ -19,32 +19,40 @@ export const useGameLogic = () => {
   const animationRef = useRef<number | null>(null)
   const contestants = useRef<ContestantType[]>([])
   const [moving, setMoving] = useState(false)
-  
-  const player = useRef<ContestantType>({
+  const [_, setRenderState] = useState(0)
 
-    x: Math.random() * (window.innerWidth - (window.innerWidth * 0.052)),
-    y: window.innerHeight * 0.89,
+  const player = useRef<ContestantType>({
+    x: 0,
+    y: 0,
     name: 'player',
     gameOver: false,
-    speed: 2
+    speed: 200,
+    winner: false,
   })
 
   useEffect(() => {
 
-    greenLight.current = true
-    greenLightCounter.current = Math.floor(120 + Math.random() * 120)
+    if (typeof window !== "undefined") {
+      // ✅ Ensuring window is available
+      player.current.x = Math.random() * (window.innerWidth - window.innerWidth * 0.052);
+      player.current.y = window.innerHeight * 0.89
 
-    for (let i = 0; i < 50; i++) {
-      contestants.current.push({
-        x: Math.random() * (window.innerWidth - (window.innerWidth * 0.052)),
-        y: window.innerHeight * 0.93,
-        name: i.toString(),
-        gameOver: false,
-        speed: 0.5 + Math.random() * 0.3
-      })
+      greenLight.current = true
+      greenLightCounter.current = Math.floor(120 + Math.random() * 120)
+
+      for (let i = 0; i < 50; i++) {
+        contestants.current.push({
+          x: Math.random() * (window.innerWidth - (window.innerWidth * 0.052)),
+          y: window.innerHeight * 0.93,
+          name: i.toString(),
+          gameOver: false,
+          speed: 0.5 + Math.random() * 0.3,
+         winner: false,
+        })
+      }
+
+      requestAnimationFrame(render)
     }
-
-    requestAnimationFrame(render)
   }, [])
 
   useEffect(() => {
@@ -67,20 +75,21 @@ export const useGameLogic = () => {
         player.current.gameOver = true
 
       }
-      setState({})
+      setRenderState((prev) => prev + 1)
     }
   }, [gameStarted, timeLeft])
 
   useEffect(() => {
 
-    if (moving) {
+    if (moving && !player.current.winner) {
 
       const interval = setInterval(() => {
         if (!greenLight.current) {
-
-          // ❌ Game over if moving during red light
+          if (!player.current.winner) {
+     // ❌ Game over if moving during red light
           player.current.gameOver = true
           setMoving(false)
+   }
 
         } else {
 
@@ -93,6 +102,7 @@ export const useGameLogic = () => {
 
             // ✅ Stop movement at the finish line
             player.current.y = 20
+            player.current.winner = true
             setMoving(false)
           }
         }
@@ -103,9 +113,11 @@ export const useGameLogic = () => {
   }, [moving]) // ✅ Triggers whenever `moving` changes
 
    const onMoveStart = () => {
-    if (greenLight.current && !player.current.gameOver) {
+     if (!player.current.winner &&
+       greenLight.current &&
+       !player.current.gameOver) {
       setMoving(true) // ✅ Start moving
-    } else {
+    } else if (!player.current.winner) {
       player.current.gameOver = true
     }
   }
@@ -117,49 +129,60 @@ export const useGameLogic = () => {
   const render = () => {
 
     if (player.current.gameOver) {
-      setAllFinished(true)
-      cancelAnimationFrame(animationRef.current!)
+      cancelAnimationFrame(animationRef.current ?? 0) // ✅ Fix TypeScript error
       return
     }
 
     greenLightCounter.current--
+
     if (greenLightCounter.current < 0) {
 
       greenLight.current = !greenLight.current
-      greenLightCounter.current = 120 + Math.random() * 100
+      greenLightCounter.current = Math.floor(120 + Math.random() * 120)
     }
 
-    let allFinishedOrEliminated = true
+    let allFinishedOrEliminated = player.current.winner
 
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < contestants.current.length; i++) {
 
       if (contestants.current[i].y < 20) {
         contestants.current[i].y = 20
-      } else if (!contestants.current[i].gameOver) {
+        contestants.current[i].winner = true
+      }
+      if (!contestants.current[i].winner &&
+        !contestants.current[i].gameOver) {
         allFinishedOrEliminated = false
       }
 
-      if (greenLight.current && !contestants.current[i].gameOver) {
+      if (greenLight.current &&
+        !contestants.current[i].gameOver
+        && !contestants.current[i].winner) {
 
         contestants.current[i].y -= contestants.current[i].speed
 
-      } else {
-        if (Math.random() * 1000 < 1 && contestants.current[i].y > 50) {
+      } else if (Math.random() * 1000 < 1 &&
+          !contestants.current[i].winner && 
+          contestants.current[i].y > 50) {
+          
           contestants.current[i].gameOver = true
-        }
       }
     }
 
       // ✅ Move player only if `moving` is true
-    if (moving) {
+    if (moving && !player.current.winner) {
       player.current.y -= player.current.speed
     }
 
-    setState({})
+
+  // ✅ If all are winners or eliminated, mark as finished
+  if (allFinishedOrEliminated) {
+    setAllFinished(true)
+    }
+    
+    setRenderState((prev) => prev + 1)
+
     if (!allFinishedOrEliminated) {
       requestAnimationFrame(render)
-    } else {
-      setAllFinished(true)
     }
   }
 

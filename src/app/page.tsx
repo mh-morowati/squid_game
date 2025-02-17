@@ -1,11 +1,10 @@
-import RedLightGreenCom from "@/components/RedLightGreenCom";
+import LevelOne from "@/components/LevelOne";
 
 
 export default function Home() {
  
   return (
-    <>
-      <RedLightGreenCom />
-    </>
+           <LevelOne/>
   )
 }
+

@@ -9,24 +9,21 @@ type GameAudioProps = {
 const DollMusic = ({ greenLight,greenLightDuration }: GameAudioProps) => {
 
      const greenLightSound = useRef<Howl | null>(null);
-
+     const musicDuration = 5.5
   useEffect(() => {
 
     if (!greenLightSound.current) {
       greenLightSound.current = new Howl({
-        src: ['/sounds/SQUAD GAME OST -  arosak (320).mp3'],
-        volume: 0.5,
-        loop: false, // Prevent looping, so it cuts off when red light happens
-        rate: 1, // Default speed
+        src: ['/sounds/arosak-sound.mp3'],
+        loop: false, 
       });
     }
 
     if (greenLight) {
 
-          // Set playback speed based on green light duration (shorter = faster)
-      const minDuration = 100; // Minimum duration
-      const maxDuration = 200; // Maximum duration
-      const speed = 1 + (1 * (1 - (greenLightDuration - minDuration) / (maxDuration - minDuration)))
+      // Set playback speed based on green light duration (shorter = faster)
+      const greenLightSeconds = greenLightDuration / 60
+      const speed =  musicDuration / greenLightSeconds
       
       greenLightSound.current.rate(speed)
       

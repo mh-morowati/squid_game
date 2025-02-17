@@ -72,8 +72,7 @@ const Contestant = ({ x, y, name, gameOver }: Props) => {
                          />
                     )}
                 <div
-                    className="absolute inset-0 top-2 flex justify-center 
-                    items-center text-white text-xs md:font-bold max-md:text-[6px]"
+                    className="absolute inset-0 top-2 flex justify-center items-center text-white text-xs md:font-bold max-md:text-[6px]"
                 >
                         {name}
                     </div>

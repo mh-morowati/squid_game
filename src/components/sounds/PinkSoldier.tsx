@@ -8,7 +8,7 @@ const PinkSoldier = () => {
      
     // Initialize the sound
     const sound = new Howl({
-      src: ["/sounds/SQUAD GAME OST -  season 1 (320).mp3"],
+      src: ["/sounds/pink-soldier.mp3"],
       volume: 1,
       loop: true,
       autoplay: true,
