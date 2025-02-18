@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react'
 
 type GameAudioProps = {
   greenLight: boolean
-   greenLightDuration: number
+  greenLightDuration: number
 }
 
 const DollMusic = (props: GameAudioProps) => {

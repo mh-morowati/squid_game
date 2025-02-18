@@ -1,10 +1,8 @@
-import { useGameLogic } from "@/lib/hooks/level1/useGameLogic"
 import Contestant from "../Contestant"
 import Finish from "../Finish"
 import PlayGround from "./PlayGround"
 import { Button } from "@heroui/button"
 import Image from "next/image"
-import { useEffect } from "react"
 
 interface GameBoardProps {
   timeLeft: number
@@ -22,13 +20,7 @@ const GameBoard = (props: GameBoardProps) => {
      contestants,
      allFinished,
      onMoveStart, 
-    onMoveStop } = props
-  
-      const { gameStarted, setGameStarted,} = useGameLogic()
-  
-       useEffect(() => {
-    setGameStarted(true); // Automatically start the game when the component mounts
-       }, [1])
+    onMoveStop } = props  
   
   return (
     <PlayGround>

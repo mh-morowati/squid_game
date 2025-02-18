@@ -9,7 +9,7 @@ import { useState } from "react"
 
 const LevelOne = () => {
 
-     const { gameStarted,timeLeft, setGameStarted,
+     const { timeLeft,
     player, 
     contestants,
     allFinished,
@@ -18,7 +18,7 @@ const LevelOne = () => {
     onMoveStart,
         onMoveStop } = useGameLogic()
     
-    const [start,setstart] = useState(false)
+    const [start,setStart] = useState(false)
     
     return (<div>
         {!start ? (
@@ -38,7 +38,7 @@ const LevelOne = () => {
                         Squid Game Online
                     </h1>
                     <Button
-                        onClick={() => setstart(true)}
+                        onClick={() => setStart(true)}
                         color="secondary"
                         size="lg" >
                         Start Game
@@ -59,9 +59,8 @@ const LevelOne = () => {
                     onMoveStop={onMoveStop}
                     />
                     <DollMusic
-                    greenLight={greenLight.current}
-                    greenLightDuration={greenLightCounter.current}
-                />
+                        greenLight={greenLight.current}
+                        greenLightDuration={greenLightCounter.current}/>
             </>
     
         )}
