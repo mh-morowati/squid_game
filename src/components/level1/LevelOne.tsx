@@ -5,6 +5,7 @@ import { useGameLogic } from "@/lib/hooks/level1/useGameLogic"
 import { Button } from "@heroui/button"
 import PinkSoldier from "../sounds/PinkSoldier"
 import Image from "next/image"
+import { useState } from "react"
 
 const LevelOne = () => {
 
@@ -17,8 +18,10 @@ const LevelOne = () => {
     onMoveStart,
         onMoveStop } = useGameLogic()
     
+    const [start,setstart] = useState(false)
+    
     return (<div>
-        {!gameStarted ? (
+        {!start ? (
             <div className="w-full h-screen bg-pink-400 place-content-center">
                 <PinkSoldier />
                 <div
@@ -35,7 +38,7 @@ const LevelOne = () => {
                         Squid Game Online
                     </h1>
                     <Button
-                        onClick={() => setGameStarted(true)}
+                        onClick={() => setstart(true)}
                         color="secondary"
                         size="lg" >
                         Start Game
