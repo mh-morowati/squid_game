@@ -44,11 +44,11 @@ export const useGameLogic = () => {
        const screenHeight = window.innerHeight
 
     // Calculate a speed factor based on screen size
-      const speedFactor = (screenWidth * 0.001) + (screenHeight * 0.0012)
-      player.current.speed = Math.max(0.8, Math.min(2, speedFactor))
-      
+      const speedFactor = screenHeight / 1000
+      player.current.speed = Math.random() * (speedFactor - (speedFactor / 0.5)) + (speedFactor / 0.5)
+      alert(Math.random() * (speedFactor - (speedFactor / 0.4)) + (speedFactor / 0.4))
       // ✅ Ensuring window is available
-      player.current.x = Math.random() * (window.innerWidth - window.innerWidth * 0.052);
+      player.current.x = Math.random() * (window.innerWidth - window.innerWidth * 0.052)
       player.current.y = window.innerHeight * 0.89
 
       greenLight.current = true
@@ -60,7 +60,7 @@ export const useGameLogic = () => {
           y: window.innerHeight * 0.93,
           name: i.toString(),
           gameOver: false,
-          speed: Math.max(0.5, Math.min(1.5, speedFactor * (0.8 + Math.random() * 0.4))),
+          speed: Math.random() * (speedFactor - (speedFactor / 2)) + (speedFactor / 2),
          winner: false,
         })
       }
