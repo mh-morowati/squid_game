@@ -6,7 +6,9 @@ type GameAudioProps = {
    greenLightDuration: number
 }
 
-const DollMusic = ({ greenLight,greenLightDuration }: GameAudioProps) => {
+const DollMusic = (props: GameAudioProps) => {
+
+  const { greenLight,greenLightDuration } = props
 
      const greenLightSound = useRef<Howl | null>(null);
      const musicDuration = 5.5

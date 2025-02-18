@@ -1,9 +1,9 @@
 "use client"
 import GameBoard from "./GameBoard"
-import DollMusic from "./sounds/DollMusic"
-import { useGameLogic } from "@/lib/hooks/useGameLogic"
+import DollMusic from "../sounds/DollMusic"
+import { useGameLogic } from "@/lib/hooks/level1/useGameLogic"
 import { Button } from "@heroui/button"
-import PinkSoldier from "./sounds/PinkSoldier"
+import PinkSoldier from "../sounds/PinkSoldier"
 import Image from "next/image"
 
 const LevelOne = () => {

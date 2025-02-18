@@ -1,6 +1,7 @@
 import { Button } from "@heroui/button"
 import Image from 'next/image'
 import {  Modal,  ModalContent} from "@heroui/modal"
+import Link from "next/link"
 
 type Props = {
     isGameOver: boolean
@@ -26,9 +27,11 @@ const Finish = (props: Props) => {
                 
                 <ModalContent>
                      <Image src={"/lose-game123-ezgif.com-gif-to-webp-converter.webp"} alt={""} fill/>
-                    <Button onClick={() => window.location.reload()} className="mt-4">
+                    <Link href={"/"}>
+                      <Button className="mt-4">
                         Restart Game
-                    </Button>
+                        </Button>
+                    </Link>
                 </ModalContent>
                
   </Modal>
@@ -38,8 +41,8 @@ const Finish = (props: Props) => {
             <Modal isOpen={true} size="full">
                 <ModalContent>
                       <Image src={"/winning-gif.gif"} alt={""} fill/>
-                <Button onClick={() => window.location.reload()} className="mt-4">
-                    Play Again
+                <Button className="mt-4">
+                    Next Game
                 </Button>
               </ModalContent>
             </Modal>
