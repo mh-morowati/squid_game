@@ -1,3 +1,4 @@
+import { Random } from "random-js"
 import { useEffect, useRef, useState } from "react"
 
 type ContestantType = {
@@ -21,6 +22,7 @@ export const useGameLogic = () => {
   const [moving, setMoving] = useState(false)
   const [_, setRenderState] = useState(0)
 
+  const random = new Random()
   const player = useRef<ContestantType>({
     x: 0,
     y: 0,
@@ -40,12 +42,11 @@ export const useGameLogic = () => {
 
     if (typeof window !== "undefined") {
 
-       const screenWidth = window.innerWidth
        const screenHeight = window.innerHeight
 
     // Calculate a speed factor based on screen size
       const speedFactor = screenHeight / 1000
-      player.current.speed = Math.random() * (speedFactor - (speedFactor / 0.5)) + (speedFactor / 0.5)
+      player.current.speed = random.real((speedFactor * 1.7), (speedFactor * 2.6),true)
       // ✅ Ensuring window is available
       player.current.x = Math.random() * (window.innerWidth - window.innerWidth * 0.052)
       player.current.y = window.innerHeight * 0.89
@@ -59,7 +60,7 @@ export const useGameLogic = () => {
           y: window.innerHeight * 0.93,
           name: i.toString(),
           gameOver: false,
-          speed: Math.random() * (speedFactor - (speedFactor / 2)) + (speedFactor / 2),
+          speed: random.real((speedFactor / 2), (speedFactor),true),
          winner: false,
         })
       }
