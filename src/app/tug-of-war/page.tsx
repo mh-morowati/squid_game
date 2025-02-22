@@ -1,4 +1,4 @@
-import LevelTwo from '../../components/level2/LevelTwo';
+import LevelTwo from '@/components/level2/LevelTwo';
 
 
 
