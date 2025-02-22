@@ -28,7 +28,7 @@ const Finish = (props: Props) => {
                 <ModalContent>
                      <Image src={"/lose-game123-ezgif.com-gif-to-webp-converter.webp"} alt={""} fill/>
                     <Link href={"/"}>
-                      <Button className="mt-4">
+                      <Button className="mt-4 min-[2000px]:p-5 min-[2000px]:w-60 min-[2000px]:h-20 min-[2000px]:text-3xl" >
                         Restart Game
                         </Button>
                     </Link>
@@ -42,7 +42,7 @@ const Finish = (props: Props) => {
                 <ModalContent>
                     <Image src={"/winning-gif.gif"} alt={""} fill />
                     <Link href={"/"}>
-                        <Button className="mt-4">
+                        <Button className="mt-4 min-[2000px]:w-60 min-[2000px]:h-20 min-[2000px]:text-3xl">
                               Next Game
                         </Button>
                         </Link>
