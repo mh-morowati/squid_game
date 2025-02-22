@@ -4,11 +4,16 @@ import { useEffect, useRef } from 'react'
 type GameAudioProps = {
   greenLight: boolean
   greenLightDuration: number
+  allPlayerFinished: boolean
+  playerGameOver: boolean
 }
 
 const DollMusic = (props: GameAudioProps) => {
 
-  const { greenLight,greenLightDuration } = props
+  const { greenLight,
+    greenLightDuration,
+    allPlayerFinished
+    ,playerGameOver } = props
 
      const greenLightSound = useRef<Howl | null>(null);
      const musicDuration = 5.5
@@ -21,6 +26,12 @@ const DollMusic = (props: GameAudioProps) => {
       });
     }
 
+     if (playerGameOver || allPlayerFinished) {
+      // Stop music completely when the game is over
+      greenLightSound.current.stop()
+      return
+    }
+    
     if (greenLight) {
 
       // Set playback speed based on green light duration (shorter = faster)

@@ -15,14 +15,15 @@ export const useGameLogic = () => {
   const [gameStarted, setGameStarted] = useState(false)
   const [timeLeft, setTimeLeft] = useState(60)
   const [allFinished, setAllFinished] = useState(false)
-  const greenLight = useRef(true)
-  const greenLightCounter = useRef(100)
+  const greenLight = useRef(false)
+  const greenLightCounter = useRef(230)
   const animationRef = useRef<number | null>(null)
   const contestants = useRef<ContestantType[]>([])
   const [moving, setMoving] = useState(false)
   const [_, setRenderState] = useState(0)
 
   const random = new Random()
+  // Initialize player
   const player = useRef<ContestantType>({
     x: 0,
     y: 0,
@@ -31,28 +32,29 @@ export const useGameLogic = () => {
     speed: 1,
     winner: false,
   })
-
+ // Start game on mount
   useEffect(() => {
-       // Automatically start the game when the component mounts
-    setGameStarted(true) 
+    setGameStarted(true)
+    
+  }, [])
 
-  },[])
+useEffect(() => {
+  if (gameStarted) {
+    switchLight()
+  }
+}, [gameStarted])
 
+   // Initialize game entities
   useEffect(() => {
 
     if (typeof window !== "undefined") {
-
        const screenHeight = window.innerHeight
-
-    // Calculate a speed factor based on screen size
+    
       const speedFactor = screenHeight / 1000
       player.current.speed = random.real((speedFactor * 1.7), (speedFactor * 2.6),true)
       // ✅ Ensuring window is available
       player.current.x = Math.random() * (window.innerWidth - window.innerWidth * 0.052)
       player.current.y = window.innerHeight * 0.89
-
-      greenLight.current = true
-      greenLightCounter.current = Math.floor(120 + Math.random() * 120)
 
       for (let i = 0; i < 50; i++) {
         contestants.current.push({
@@ -69,6 +71,7 @@ export const useGameLogic = () => {
     }
   }, [])
 
+   // Countdown timer logic
   useEffect(() => {
 
     if (gameStarted && timeLeft > 0) {
@@ -126,6 +129,19 @@ export const useGameLogic = () => {
     }
   }, [moving]) // ✅ Triggers whenever `moving` changes
 
+    // Handles switching the green/red light
+  const switchLight = () => {
+  greenLight.current = !greenLight.current
+
+  const nextDuration = greenLight.current
+    ? random.integer(2000, 4000) // Green light: 3-4 sec
+    : random.integer(2000, 3000) // Red light: 2-3 sec
+
+  greenLightCounter.current = Math.floor(nextDuration / (1000 / 60)) // Convert ms to frames
+
+  setTimeout(switchLight, nextDuration) // Switch after the duration
+}
+
    const onMoveStart = () => {
      if (!player.current.winner &&
        greenLight.current &&
@@ -145,14 +161,6 @@ export const useGameLogic = () => {
     if (player.current.gameOver) {
       cancelAnimationFrame(animationRef.current ?? 0) // ✅ Fix TypeScript error
       return
-    }
-
-    greenLightCounter.current--
-
-    if (greenLightCounter.current < 0) {
-
-      greenLight.current = !greenLight.current
-      greenLightCounter.current = Math.floor(120 + Math.random() * 120)
     }
 
     let allFinishedOrEliminated = player.current.winner

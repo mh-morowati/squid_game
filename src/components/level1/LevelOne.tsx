@@ -60,7 +60,9 @@ const LevelOne = () => {
                     />
                     <DollMusic
                         greenLight={greenLight.current}
-                        greenLightDuration={greenLightCounter.current}/>
+                        greenLightDuration={greenLightCounter.current}
+                        allPlayerFinished={allFinished}
+                        playerGameOver={player.current.gameOver} />
             </>
     
         )}

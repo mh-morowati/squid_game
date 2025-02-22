@@ -40,10 +40,12 @@ const Finish = (props: Props) => {
         {allPlayerFinished && !isGameOver && (
             <Modal isOpen={true} size="full">
                 <ModalContent>
-                      <Image src={"/winning-gif.gif"} alt={""} fill/>
-                <Button className="mt-4">
-                    Next Game
-                </Button>
+                    <Image src={"/winning-gif.gif"} alt={""} fill />
+                    <Link href={"/tug-of-war"}>
+                        <Button className="mt-4">
+                              Next Game
+                        </Button>
+                        </Link>
               </ModalContent>
             </Modal>
         )}
