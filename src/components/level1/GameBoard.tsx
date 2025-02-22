@@ -1,4 +1,4 @@
-import Contestant from "../Contestant"
+import Contestant from "./Contestant"
 import Finish from "../Finish"
 import PlayGround from "./PlayGround"
 import { Button } from "@heroui/button"

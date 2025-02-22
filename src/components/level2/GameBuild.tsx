@@ -1,11 +1,12 @@
 import PlayGroundTwo from "./PlayGroundTwo"
+import Image from 'next/image';
 
 
 const GameBuild = () => {
   
   return (
     <PlayGroundTwo>
-TugOfWar
+tug-of-war
     </PlayGroundTwo>
   )
 }
