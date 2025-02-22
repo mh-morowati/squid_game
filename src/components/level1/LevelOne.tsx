@@ -26,7 +26,7 @@ const LevelOne = () => {
                 <PinkSoldier />
                 <div
                     className="place-content-center place-items-center place-self-center
-         sm:min-h-96 rounded sm:w-[500px] w-[90%] bg-slate-400 p-6"
+         sm:min-h-96 rounded sm:w-[500px] w-[90%] bg-slate-400 p-6 2xl:min-h-[600px] 2xl:w-[800px]"
                 >
                     <Image
                         src={"/squid-game-start.jpg"}
@@ -38,6 +38,7 @@ const LevelOne = () => {
                         Squid Game Online
                     </h1>
                     <Button
+                        className="min-[2000px]:w-60 min-[2000px]:h-20 min-[2000px]:text-3xl"
                         onClick={() => setStart(true)}
                         color="secondary"
                         size="lg" >

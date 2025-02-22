@@ -51,7 +51,8 @@ useEffect(() => {
        const screenHeight = window.innerHeight
     
       const speedFactor = screenHeight / 1000
-      player.current.speed = random.real((speedFactor * 1.7), (speedFactor * 2.6),true)
+      player.current.speed = speedFactor < 1.3 ? random.real((speedFactor * 1.7), (speedFactor * 2.6), true) :
+        random.real((speedFactor * 2.1), (speedFactor * 3),true)
       // ✅ Ensuring window is available
       player.current.x = Math.random() * (window.innerWidth - window.innerWidth * 0.052)
       player.current.y = window.innerHeight * 0.89
@@ -62,7 +63,8 @@ useEffect(() => {
           y: window.innerHeight * 0.93,
           name: i.toString(),
           gameOver: false,
-          speed: random.real((speedFactor / 2), (speedFactor),true),
+          speed: speedFactor < 1.3 ? random.real((speedFactor / 2), (speedFactor), true) :
+            random.real((speedFactor), (speedFactor * 1.1), true),
          winner: false,
         })
       }
