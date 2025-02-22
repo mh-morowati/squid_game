@@ -41,7 +41,7 @@ const Finish = (props: Props) => {
             <Modal isOpen={true} size="full">
                 <ModalContent>
                     <Image src={"/winning-gif.gif"} alt={""} fill />
-                    <Link href={"/tug-of-war"}>
+                    <Link href={"/"}>
                         <Button className="mt-4">
                               Next Game
                         </Button>
