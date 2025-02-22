@@ -26,7 +26,7 @@ const LevelOne = () => {
                 <PinkSoldier />
                 <div
                     className="place-content-center place-items-center place-self-center
-         sm:min-h-96 rounded sm:w-[500px] w-[90%] bg-slate-400 p-6 2xl:min-h-[600px] 2xl:w-[800px]"
+         sm:min-h-96 rounded sm:w-[500px] w-[90%] bg-slate-400 p-6 min-[2000px]:min-h-[600px] min-[2000px]:w-[800px]"
                 >
                     <Image
                         src={"/squid-game-start.jpg"}
