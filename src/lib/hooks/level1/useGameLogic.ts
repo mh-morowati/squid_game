@@ -183,7 +183,7 @@ useEffect(() => {
         !contestants.current[i].gameOver
         && !contestants.current[i].winner) {
 
-        contestants.current[i].y -= contestants.current[i].speed * (spf.current * referenceFPS)
+        contestants.current[i].y -= contestants.current[i].speed
 
       } else if (Math.random() * 1000 < 1 &&
           !contestants.current[i].winner && 
