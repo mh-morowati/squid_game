@@ -51,14 +51,19 @@ const Contestant = ({ x, y, name, gameOver }: Props) => {
                             alt={'player'}
                             width={50}
                             height={50}
-                            className='max-sm:w-10 max-sm:h-12 rotate-45' // Rotate the player image
+                        className='max-sm:w-10 max-sm:h-12 rotate-45'
+                        priority
+                          placeholder="blur"
+                          blurDataURL="/player.png"
                         />
                         <Image
                             src={'/kill-blood.png'}
                             alt={'blood'}
                             width={50}
                             height={50}
-                            className='max-sm:w-10 max-sm:h-12 absolute top-0 left-0'
+                          className='max-sm:w-10 max-sm:h-12 absolute top-0 left-0'
+                        priority
+                        placeholder='blur'
                     />
                 </>
                     ) : (

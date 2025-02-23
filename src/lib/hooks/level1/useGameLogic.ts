@@ -21,7 +21,8 @@ export const useGameLogic = () => {
   const contestants = useRef<ContestantType[]>([])
   const [moving, setMoving] = useState(false)
   const [_, setRenderState] = useState(0)
-
+  const lastTime = useRef(performance.now())
+  
   const random = new Random()
   // Initialize player
   const player = useRef<ContestantType>({
@@ -159,6 +160,10 @@ useEffect(() => {
   }
 
   const render = () => {
+
+    const currentTime = performance.now();
+    const deltaTime = (currentTime - lastTime.current) / 1000; // Convert to seconds
+    lastTime.current = currentTime
 
     if (player.current.gameOver) {
       cancelAnimationFrame(animationRef.current ?? 0) // ✅ Fix TypeScript error
