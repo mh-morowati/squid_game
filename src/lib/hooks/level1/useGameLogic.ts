@@ -37,6 +37,7 @@ export const useGameLogic = () => {
 useEffect(() => {
   if (gameStarted) {
     switchLight()
+    requestAnimationFrame(render)
   }
 }, [gameStarted])
 
@@ -64,8 +65,6 @@ useEffect(() => {
          winner: false,
         })
       }
-
-      requestAnimationFrame(render)
     }
   }, [])
 
