@@ -134,7 +134,7 @@ useEffect(() => {
     if (!gameStarted) return
     
  const currentTime = performance.now()
-    const delta = (currentTime - lastFrameTime.current) / (1000 / 60) // Normalize to 60 FPS
+    const delta = (currentTime - lastFrameTime.current) / (1000 / 60)
     lastFrameTime.current = currentTime
     
     if (player.current.gameOver) {
