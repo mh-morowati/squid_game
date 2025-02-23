@@ -3,6 +3,7 @@ import Image from 'next/image'
 import {  Modal,  ModalContent} from "@heroui/modal"
 import Link from "next/link"
 import { useGameLogic } from "@/lib/hooks/level1/useGameLogic"
+import { useRouter } from "next/navigation"
 
 type Props = {
     isGameOver: boolean
@@ -13,6 +14,7 @@ const Finish = (props: Props) => {
 
     const { isGameOver, allPlayerFinished } = props
      const {setGameStarted} = useGameLogic()
+    const router = useRouter()
     
     return (<>
         <div className="bg-red-600 absolute h-1 w-[100vw] top-20">
@@ -33,10 +35,10 @@ const Finish = (props: Props) => {
                       alt={""} 
                      fill
                      />
-                    <Link href={"/"}>
+                    <Link href={"/"} passHref>
                         <Button
                             className="mt-4 min-[2000px]:p-5 min-[2000px]:w-60 min-[2000px]:h-20 min-[2000px]:text-3xl"
-                            onClick={() => setGameStarted(false)}
+                            onPress={() => {setGameStarted(false)}}
                         >
                         Restart Game
                         </Button>
