@@ -62,7 +62,7 @@ useEffect(() => {
       for (let i = 0; i < 50; i++) {
         contestants.current.push({
           x: Math.random() * (window.innerWidth - (window.innerWidth * 0.052)),
-          y: window.innerHeight * 0.89,
+          y: window.innerHeight,
           name: i.toString(),
           gameOver: false,
           speed: speedFactor < 1.3 ?
@@ -159,7 +159,7 @@ useEffect(() => {
         !contestants.current[i].gameOver
         && !contestants.current[i].winner) {
 
-        contestants.current[i].y -= contestants.current[i].speed
+        contestants.current[i].y -= contestants.current[i].speed * delta
 
       } else if (Math.random() * 1000 < 1 &&
           !contestants.current[i].winner && 
@@ -170,7 +170,7 @@ useEffect(() => {
     }
 
     if (moving && !player.current.winner) {
-      player.current.y -= player.current.speed
+      player.current.y -= player.current.speed * delta
     }
 
   if (allFinishedOrEliminated) {
