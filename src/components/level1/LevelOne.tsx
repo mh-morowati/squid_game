@@ -5,7 +5,8 @@ import { useGameLogic } from "@/lib/hooks/level1/useGameLogic"
 import { Button } from "@heroui/button"
 import PinkSoldier from "../sounds/PinkSoldier"
 import Image from "next/image"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { p } from "framer-motion/client"
 
 const LevelOne = () => {
 
@@ -18,7 +19,16 @@ const LevelOne = () => {
     onMoveStart,
         onMoveStop } = useGameLogic()
     
-    const [start,setStart] = useState(false)
+    const [start, setStart] = useState(false)
+    const [loading, setLoading] = useState(true)
+    
+     useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000)
+
+    return () => clearTimeout(timer);
+  }, [])
     
     return (<div>
         {!start ? (
@@ -37,13 +47,17 @@ const LevelOne = () => {
                     <h1 className="text-2xl font-medium text-white my-3">
                         Squid Game Online
                     </h1>
-                    <Button
+                    {loading ? (
+                    <p>loading...</p>
+                    ) : (
+                        <Button
                         className="min-[2000px]:w-60 min-[2000px]:h-20 min-[2000px]:text-3xl"
                         onClick={() => setStart(true)}
                         color="secondary"
                         size="lg" >
                         Start Game
-                    </Button>
+                        </Button>
+                    )}
         
                 </div>
             </div>
