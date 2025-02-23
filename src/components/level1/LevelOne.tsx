@@ -16,17 +16,15 @@ const LevelOne = () => {
     greenLightCounter,
     greenLight,
     onMoveStart,
-         onMoveStop,
-    setGameStarted } = useGameLogic()
-    
-    const [start, setStart] = useState(false)
-    
+    onMoveStop,
+    setGameStarted,
+    gameStarted} = useGameLogic()
+        
     const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Simulate asset loading (adjust time if needed)
     const timer = setTimeout(() => {
-      setGameStarted(true)
       setLoading(false)
     }, 3000)
 
@@ -34,10 +32,15 @@ const LevelOne = () => {
 
   }, []);
 
-  if (loading) {
+  if (loading || !gameStarted) {
     return (
       <div className="w-full h-screen flex items-center justify-center bg-black text-white text-2xl">
-        Loading Game...
+            <h1>
+                 Loading Game...
+           </h1>
+           {!loading && <Button onPress={() => setGameStarted(true)}>
+               Start
+            </Button>}
       </div>
     );
   }

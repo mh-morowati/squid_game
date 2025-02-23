@@ -2,6 +2,7 @@ import { Button } from "@heroui/button"
 import Image from 'next/image'
 import {  Modal,  ModalContent} from "@heroui/modal"
 import Link from "next/link"
+import { useGameLogic } from "@/lib/hooks/level1/useGameLogic"
 
 type Props = {
     isGameOver: boolean
@@ -10,7 +11,8 @@ type Props = {
 
 const Finish = (props: Props) => {
 
-    const { isGameOver,allPlayerFinished } = props
+    const { isGameOver, allPlayerFinished } = props
+     const {setGameStarted} = useGameLogic()
     
     return (<>
         <div className="bg-red-600 absolute h-1 w-[100vw] top-20">
@@ -28,7 +30,9 @@ const Finish = (props: Props) => {
                 <ModalContent>
                      <Image src={"/lose-game123-ezgif.com-gif-to-webp-converter.webp"} alt={""} fill/>
                     <Link href={"/"}>
-                      <Button className="mt-4 min-[2000px]:p-5 min-[2000px]:w-60 min-[2000px]:h-20 min-[2000px]:text-3xl" >
+                        <Button
+                            className="mt-4 min-[2000px]:p-5 min-[2000px]:w-60 min-[2000px]:h-20 min-[2000px]:text-3xl"
+                        onPress={() => setGameStarted(false)}>
                         Restart Game
                         </Button>
                     </Link>
@@ -42,7 +46,9 @@ const Finish = (props: Props) => {
                 <ModalContent>
                     <Image src={"/winning-gif.gif"} alt={""} fill />
                     <Link href={"/"}>
-                        <Button className="mt-4 min-[2000px]:w-60 min-[2000px]:h-20 min-[2000px]:text-3xl">
+                        <Button
+                            className="mt-4 min-[2000px]:w-60 min-[2000px]:h-20 min-[2000px]:text-3xl"
+                        onPress={() => setGameStarted(false)}>
                               Next Game
                         </Button>
                         </Link>

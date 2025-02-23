@@ -213,6 +213,7 @@ useEffect(() => {
   return ({
     timeLeft,
     setGameStarted,
+    gameStarted,
      greenLight,
      greenLightCounter,
      player,
