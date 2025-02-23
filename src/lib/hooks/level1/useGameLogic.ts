@@ -21,7 +21,9 @@ export const useGameLogic = () => {
   const contestants = useRef<ContestantType[]>([])
   const [moving, setMoving] = useState(false)
   const [_, setRenderState] = useState(0)
-  const lastTime = useRef(performance.now())
+  const lastFrameTime = useRef(performance.now());
+const referenceFPS = 60; // ✅ Standard FPS
+const spf = useRef(1 / referenceFPS)
   
   const random = new Random()
   // Initialize player
@@ -60,8 +62,8 @@ useEffect(() => {
           y: window.innerHeight * 0.93,
           name: i.toString(),
           gameOver: false,
-          speed: speedFactor < 1.3 ? random.real((speedFactor / 2), (speedFactor), true) :
-            random.real((speedFactor), (speedFactor * 1.1), true),
+          speed: speedFactor < 1.3 ? random.real((speedFactor / 2), (speedFactor), true) * (spf.current * referenceFPS) :
+            random.real((speedFactor), (speedFactor * 1.1), true) * (spf.current * referenceFPS),
          winner: false,
         })
       }
@@ -122,7 +124,7 @@ useEffect(() => {
         }
       }, 50) // Adjust speed
 
-      return () => clearInterval(interval) // ✅ Cleanup interval when stopping
+      return () => clearInterval(interval)
     }
   }, [moving]) // ✅ Triggers whenever `moving` changes
 
@@ -155,10 +157,10 @@ useEffect(() => {
 
   const render = () => {
 
-    const currentTime = performance.now();
-    const deltaTime = (currentTime - lastTime.current) / 1000; // Convert to seconds
-    lastTime.current = currentTime
-
+ const currentTime = performance.now();
+  spf.current = (currentTime - lastFrameTime.current) / 1000; // ✅ Get SPF
+  lastFrameTime.current = currentTime
+    
     if (player.current.gameOver) {
       cancelAnimationFrame(animationRef.current ?? 0) // ✅ Fix TypeScript error
       return
@@ -181,7 +183,7 @@ useEffect(() => {
         !contestants.current[i].gameOver
         && !contestants.current[i].winner) {
 
-        contestants.current[i].y -= contestants.current[i].speed
+        contestants.current[i].y -= contestants.current[i].speed * (spf.current * referenceFPS)
 
       } else if (Math.random() * 1000 < 1 &&
           !contestants.current[i].winner && 
