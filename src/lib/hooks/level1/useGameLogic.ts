@@ -33,11 +33,6 @@ export const useGameLogic = () => {
     speed: 1,
     winner: false,
   })
- // Start game on mount
-  useEffect(() => {
-    setGameStarted(true)
-    
-  }, [])
 
 useEffect(() => {
   if (gameStarted) {
@@ -215,7 +210,9 @@ useEffect(() => {
     }
   }
 
-  return ({timeLeft,
+  return ({
+    timeLeft,
+    setGameStarted,
      greenLight,
      greenLightCounter,
      player,
