@@ -35,10 +35,10 @@ const Finish = (props: Props) => {
                       alt={""} 
                      fill
                      />
-                    <Link href={"/"} passHref>
+                    <Link href={"/"}>
                         <Button
                             className="mt-4 min-[2000px]:p-5 min-[2000px]:w-60 min-[2000px]:h-20 min-[2000px]:text-3xl"
-                            onPress={() => {setGameStarted(false)}}
+                            onPress={() => {setGameStarted(false),router.push("/")}}
                         >
                         Restart Game
                         </Button>
