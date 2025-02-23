@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react"
 import Contestant from "../Contestant"
 import Finish from "../Finish"
 import PlayGround from "./PlayGround"
@@ -21,6 +22,25 @@ const GameBoard = (props: GameBoardProps) => {
      allFinished,
      onMoveStart, 
     onMoveStop } = props  
+  
+    const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate asset loading (adjust time if needed)
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 3000); // Wait 3 seconds before showing the game
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center bg-black text-white text-2xl">
+        Loading Game...
+      </div>
+    );
+  }
   
   return (
     <PlayGround>
