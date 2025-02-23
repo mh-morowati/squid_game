@@ -48,12 +48,13 @@ useEffect(() => {
   useEffect(() => {
 
     if (typeof window !== "undefined") {
-       const screenHeight = window.innerHeight
-      const speedFactor = screenHeight / 1000
+      const screenHeight = window.innerHeight
+      const playerSpeedFactor = screenHeight / 1000
+      const speedFactor = screenHeight / 1300
 
-      player.current.speed = speedFactor < 1.3 ?
-        random.real((speedFactor * 1.7), (speedFactor * 2.6), true) :
-        random.real((speedFactor * 2.1), (speedFactor * 3),true)
+      player.current.speed = playerSpeedFactor < 1.3 ?
+        random.real((playerSpeedFactor * 1.7), (playerSpeedFactor * 2.6), true) :
+        random.real((playerSpeedFactor * 2.1), (playerSpeedFactor * 3),true)
       
       player.current.x = Math.random() * (window.innerWidth - window.innerWidth * 0.052)
       player.current.y = window.innerHeight * 0.89
@@ -61,11 +62,11 @@ useEffect(() => {
       for (let i = 0; i < 50; i++) {
         contestants.current.push({
           x: Math.random() * (window.innerWidth - (window.innerWidth * 0.052)),
-          y: window.innerHeight * 0.93,
+          y: window.innerHeight,
           name: i.toString(),
           gameOver: false,
           speed: speedFactor < 1.3 ?
-            random.real((speedFactor / 2), (speedFactor), true) :
+            random.real((speedFactor / 2), (speedFactor), true)  :
             random.real((speedFactor), (speedFactor * 1.1), true),
          winner: false,
         })
@@ -129,7 +130,9 @@ useEffect(() => {
   }, [moving])
 
   const render = () => {
-
+     
+    if (!gameStarted) return
+    
  const currentTime = performance.now()
     const delta = (currentTime - lastFrameTime.current) / (1000 / 60) // Normalize to 60 FPS
     lastFrameTime.current = currentTime
@@ -156,7 +159,7 @@ useEffect(() => {
         !contestants.current[i].gameOver
         && !contestants.current[i].winner) {
 
-        contestants.current[i].y -= contestants.current[i].speed
+        contestants.current[i].y -= contestants.current[i].speed * delta
 
       } else if (Math.random() * 1000 < 1 &&
           !contestants.current[i].winner && 
@@ -167,7 +170,7 @@ useEffect(() => {
     }
 
     if (moving && !player.current.winner) {
-      player.current.y -= player.current.speed
+      player.current.y -= player.current.speed * delta
     }
 
   if (allFinishedOrEliminated) {
@@ -176,9 +179,7 @@ useEffect(() => {
     
     setRenderState((prev) => prev + 1)
 
-    if (!allFinishedOrEliminated) {
-      requestAnimationFrame(render)
-    }
+    raf(render)
   }
 
   const switchLight = () => {
