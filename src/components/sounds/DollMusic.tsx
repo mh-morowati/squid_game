@@ -27,14 +27,13 @@ const DollMusic = (props: GameAudioProps) => {
     }
 
      if (playerGameOver || allPlayerFinished) {
-      // Stop music completely when the game is over
+      
       greenLightSound.current.stop()
       return
     }
     
     if (greenLight) {
 
-      // Set playback speed based on green light duration (shorter = faster)
       const greenLightSeconds = greenLightDuration / 60
       const speed =  musicDuration / greenLightSeconds
       
@@ -42,11 +41,11 @@ const DollMusic = (props: GameAudioProps) => {
       
       greenLightSound.current.play()
     } else {
-      greenLightSound.current.stop() // Stop completely on red light
+      greenLightSound.current.stop() 
     }
 
     return () => {
-      greenLightSound.current?.stop() // Ensure it stops when unmounting
+      greenLightSound.current?.stop() 
     };
   }, [greenLight])
 

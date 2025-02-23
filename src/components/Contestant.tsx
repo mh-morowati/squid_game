@@ -1,8 +1,6 @@
-
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-
 
 type Props = {
     x: number
@@ -10,6 +8,7 @@ type Props = {
     name: string
     gameOver: boolean
 }
+
 
 const Contestant = ({ x, y, name, gameOver }: Props) => {
     
@@ -19,10 +18,10 @@ const Contestant = ({ x, y, name, gameOver }: Props) => {
       
         if (gameOver) {
 
-                // Play bullet sound effect
+                
             const bulletSound = new Audio('/sounds/MLG sniper sound effect.mp3')
             bulletSound.play()
-  // Set the player to a "dead" state
+  
             setIsDead(true)
         }
     }, [gameOver])
@@ -64,7 +63,7 @@ const Contestant = ({ x, y, name, gameOver }: Props) => {
                     />
                 </>
                     ) : (
-                        // Normal player image
+                        
                     <Image
                         src={'/player.png'}
                          alt={'player'}

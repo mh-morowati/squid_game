@@ -1,5 +1,6 @@
 import { Random } from "random-js"
 import { useEffect, useRef, useState } from "react"
+import { __raf, raf } from 'rafz';
 
 type ContestantType = {
   x: number
@@ -21,12 +22,10 @@ export const useGameLogic = () => {
   const contestants = useRef<ContestantType[]>([])
   const [moving, setMoving] = useState(false)
   const [_, setRenderState] = useState(0)
-  const lastFrameTime = useRef(performance.now());
-const referenceFPS = 60; // ✅ Standard FPS
-const spf = useRef(1 / referenceFPS)
+
   
   const random = new Random()
-  // Initialize player
+  
   const player = useRef<ContestantType>({
     x: 0,
     y: 0,
@@ -36,10 +35,12 @@ const spf = useRef(1 / referenceFPS)
     winner: false,
   })
 
+    const lastFrameTime = useRef(performance.now())
+
 useEffect(() => {
   if (gameStarted) {
     switchLight()
-    requestAnimationFrame(render)
+    raf(render)
   }
 }, [gameStarted])
 
@@ -48,11 +49,12 @@ useEffect(() => {
 
     if (typeof window !== "undefined") {
        const screenHeight = window.innerHeight
-    
       const speedFactor = screenHeight / 1000
-      player.current.speed = speedFactor < 1.3 ? random.real((speedFactor * 1.7), (speedFactor * 2.6), true) :
+
+      player.current.speed = speedFactor < 1.3 ?
+        random.real((speedFactor * 1.7), (speedFactor * 2.6), true) :
         random.real((speedFactor * 2.1), (speedFactor * 3),true)
-      // ✅ Ensuring window is available
+      
       player.current.x = Math.random() * (window.innerWidth - window.innerWidth * 0.052)
       player.current.y = window.innerHeight * 0.89
 
@@ -62,8 +64,9 @@ useEffect(() => {
           y: window.innerHeight * 0.93,
           name: i.toString(),
           gameOver: false,
-          speed: speedFactor < 1.3 ? random.real((speedFactor / 2), (speedFactor), true) * (spf.current * referenceFPS) :
-            random.real((speedFactor), (speedFactor * 1.1), true) * (spf.current * referenceFPS),
+          speed: speedFactor < 1.3 ?
+            random.real((speedFactor / 2), (speedFactor), true) :
+            random.real((speedFactor), (speedFactor * 1.1), true),
          winner: false,
         })
       }
@@ -102,7 +105,6 @@ useEffect(() => {
       const interval = setInterval(() => {
         if (!greenLight.current) {
           if (!player.current.winner) {
-     // ❌ Game over if moving during red light
           player.current.gameOver = true
           setMoving(false)
    }
@@ -111,58 +113,29 @@ useEffect(() => {
 
           if (player.current.y > 20) { 
 
-            // ✅ Move the player upwards
             player.current.y -= player.current.speed
 
           } else {
 
-            // ✅ Stop movement at the finish line
             player.current.y = 20
             player.current.winner = true
             setMoving(false)
           }
         }
-      }, 50) // Adjust speed
+      }, 50)
 
       return () => clearInterval(interval)
     }
-  }, [moving]) // ✅ Triggers whenever `moving` changes
-
-    // Handles switching the green/red light
-  const switchLight = () => {
-  greenLight.current = !greenLight.current
-
-  const nextDuration = greenLight.current
-    ? random.integer(2000, 4000) // Green light: 3-4 sec
-    : random.integer(2000, 3000) // Red light: 2-3 sec
-
-  greenLightCounter.current = Math.floor(nextDuration / (1000 / 60)) // Convert ms to frames
-
-  setTimeout(switchLight, nextDuration) // Switch after the duration
-}
-
-   const onMoveStart = () => {
-     if (!player.current.winner &&
-       greenLight.current &&
-       !player.current.gameOver) {
-      setMoving(true) // ✅ Start moving
-    } else if (!player.current.winner) {
-      player.current.gameOver = true
-    }
-  }
-
-  const onMoveStop = () => {
-    setMoving(false) // ✅ Stop moving
-  }
+  }, [moving])
 
   const render = () => {
 
- const currentTime = performance.now();
-  spf.current = (currentTime - lastFrameTime.current) / 1000; // ✅ Get SPF
-  lastFrameTime.current = currentTime
+ const currentTime = performance.now()
+    const delta = (currentTime - lastFrameTime.current) / (1000 / 60) // Normalize to 60 FPS
+    lastFrameTime.current = currentTime
     
     if (player.current.gameOver) {
-      cancelAnimationFrame(animationRef.current ?? 0) // ✅ Fix TypeScript error
+      cancelAnimationFrame(animationRef.current ?? 0)
       return
     }
 
@@ -193,13 +166,10 @@ useEffect(() => {
       }
     }
 
-      // ✅ Move player only if `moving` is true
     if (moving && !player.current.winner) {
       player.current.y -= player.current.speed
     }
 
-
-  // ✅ If all are winners or eliminated, mark as finished
   if (allFinishedOrEliminated) {
     setAllFinished(true)
     }
@@ -209,6 +179,32 @@ useEffect(() => {
     if (!allFinishedOrEliminated) {
       requestAnimationFrame(render)
     }
+  }
+
+  const switchLight = () => {
+  greenLight.current = !greenLight.current
+
+  const nextDuration = greenLight.current
+    ? random.integer(2000, 4000) 
+    : random.integer(2000, 3000) 
+
+  greenLightCounter.current = Math.floor(nextDuration / (1000 / 60))
+
+  setTimeout(switchLight, nextDuration) 
+}
+
+   const onMoveStart = () => {
+     if (!player.current.winner &&
+       greenLight.current &&
+       !player.current.gameOver) {
+      setMoving(true)
+    } else if (!player.current.winner) {
+      player.current.gameOver = true
+    }
+  }
+
+  const onMoveStop = () => {
+    setMoving(false)
   }
 
   return ({

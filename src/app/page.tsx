@@ -1,4 +1,4 @@
-import LevelOne from "@/components/level1/LevelOne";
+import LevelOne from "@/components/level1/LevelOne"
 
 
 export default function Home() {
