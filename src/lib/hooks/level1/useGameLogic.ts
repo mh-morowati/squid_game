@@ -50,7 +50,7 @@ useEffect(() => {
     if (typeof window !== "undefined") {
       const screenHeight = window.innerHeight
       const playerSpeedFactor = screenHeight / 1000
-      const speedFactor = screenHeight / 1300
+      const speedFactor = screenHeight / 1700
 
       player.current.speed = playerSpeedFactor < 1.3 ?
         random.real((playerSpeedFactor * 1.7), (playerSpeedFactor * 2.6), true) :

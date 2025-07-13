@@ -13,7 +13,7 @@ const Finish = (props: Props) => {
     const { isGameOver, allPlayerFinished } = props
     
     return (<>
-        <div className="bg-red-600 absolute h-1 w-[100vw] top-20">
+        <div className="bg-red-600 absolute h-1 w-[100vw] sm:top-20 top-14">
             <Image 
             className="absolute left-1/2 max-sm:left-1/3 bottom-0" 
             src={'/tree_prev_ui.png'}
