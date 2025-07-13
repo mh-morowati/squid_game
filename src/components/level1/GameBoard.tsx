@@ -53,7 +53,7 @@ const GameBoard = (props: GameBoardProps) => {
 
       <Contestant x={player.x} y={player.y} name={player.name} gameOver={player.gameOver} />
       
-      {contestants.current.map((c: any) => (
+      {contestants.map((c: any) => (
         <Contestant key={c.name} x={c.x} y={c.y} name={c.name} gameOver={c.gameOver} />
       ))}
 

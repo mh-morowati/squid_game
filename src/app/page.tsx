@@ -5,7 +5,7 @@ export default function Home() {
  
   return (
     <>
-    <a href={"red-light-green-light"}>red-light-green-light</a>
+    <Link href={"red-light-green-light"}>red-light-green-light</Link>
       <a href={" marble-game"}> marble-game</a>
     </>
    
