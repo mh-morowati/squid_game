@@ -1,6 +1,6 @@
 import { Random } from "random-js"
 import { useEffect, useRef, useState } from "react"
-import { __raf, raf } from 'rafz';
+import { __raf, raf } from 'rafz'
 
 type ContestantType = {
   x: number
@@ -35,7 +35,8 @@ export const useGameLogic = () => {
     winner: false,
   })
 
-    const lastFrameTime = useRef(performance.now())
+  const lastFrameTime = useRef(performance.now())
+  
 
 useEffect(() => {
   if (gameStarted) {
