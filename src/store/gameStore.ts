@@ -178,7 +178,7 @@ export const useGameStore = create<GameState>((set, get) => {
         })
 
         lastFrameTime = performance.now()
-        animationRef = raf(render)
+        animationRef = requestAnimationFrame(render)
         switchLight()
 
         timerId = setInterval(() => {
