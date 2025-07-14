@@ -1,3 +1,4 @@
+import { useGameStore } from "@/store/gameStore"
 import Contestant from "../Contestant"
 import Finish from "../Finish"
 import PlayGround from "./PlayGround"
@@ -13,14 +14,14 @@ interface GameBoardProps {
   onMoveStop: () => void
 }
 
-const GameBoard = (props: GameBoardProps) => {
+const GameBoard = () => {
 
   const { timeLeft,
      player,
      contestants,
      allFinished,
      onMoveStart, 
-    onMoveStop } = props  
+    onMoveStop } = useGameStore()  
   
   return (
     <PlayGround>

@@ -9,18 +9,14 @@ import { useEffect, useState } from "react"
 
 const LevelOne = () => {
 
-     const { timeLeft,
-    gameStarted,
-    greenLight,
-       player,
-    greenLightCounter,
-    contestants,
-    allFinished,
-    setGameStarted,
-    onMoveStart,
-    onMoveStop} = useGameStore()
-        
+     const { gameStarted,setGameStarted} = useGameStore()
+  const resetGame = useGameStore(state => state.resetGame)
+  
     const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    resetGame()
+  }, [])
 
   useEffect(() => {
 
@@ -64,19 +60,8 @@ const LevelOne = () => {
   }
     
     return (<div>
-                <GameBoard
-                    timeLeft={timeLeft}
-                    player={player}
-                    contestants={contestants}
-                    allFinished={allFinished}
-                    onMoveStart={onMoveStart}
-                    onMoveStop={onMoveStop}
-                    />
-                    <DollMusic
-                        greenLight={greenLight}
-                        greenLightDuration={greenLightCounter}
-                        allPlayerFinished={allFinished}
-                        playerGameOver={player.gameOver} />
+                <GameBoard />
+                    <DollMusic />
             </div>)
 }
 
