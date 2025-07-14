@@ -25,7 +25,6 @@ const Contestant = ({ x, y, name, gameOver }: Props) => {
             setIsDead(true)
         }
     }, [gameOver])
-
     
     return(<motion.div
                 className="absolute"

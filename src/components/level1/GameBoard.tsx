@@ -1,3 +1,4 @@
+import { useGameStore } from "@/store/gameStore"
 import Contestant from "../Contestant"
 import Finish from "../Finish"
 import PlayGround from "./PlayGround"
@@ -13,14 +14,14 @@ interface GameBoardProps {
   onMoveStop: () => void
 }
 
-const GameBoard = (props: GameBoardProps) => {
+const GameBoard = () => {
 
   const { timeLeft,
      player,
      contestants,
      allFinished,
      onMoveStart, 
-    onMoveStop } = props  
+    onMoveStop } = useGameStore()  
   
   return (
     <PlayGround>
@@ -32,7 +33,7 @@ const GameBoard = (props: GameBoardProps) => {
     </h1>
 
         <Button
-      className="absolute border left-1/2 top-1/3 min-[2000px]::w-40 min-[2000px]:h-20 min-[2000px]:text-3xl"
+      className="absolute border left-1/2 top-1/3 min-[2000px]::w-40 min-[2000px]:h-20 min-[2000px]:text-3xl z-50"
       onMouseEnter={onMoveStart}
       onMouseLeave={onMoveStop}
       onTouchStart={onMoveStart}
@@ -53,7 +54,7 @@ const GameBoard = (props: GameBoardProps) => {
 
       <Contestant x={player.x} y={player.y} name={player.name} gameOver={player.gameOver} />
       
-      {contestants.current.map((c: any) => (
+      {contestants.map((c: any) => (
         <Contestant key={c.name} x={c.x} y={c.y} name={c.name} gameOver={c.gameOver} />
       ))}
 

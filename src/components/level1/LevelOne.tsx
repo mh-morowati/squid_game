@@ -1,26 +1,22 @@
 "use client"
 import GameBoard from "./GameBoard"
 import DollMusic from "../sounds/DollMusic"
-import { useGameLogic } from "@/lib/hooks/level1/useGameLogic"
 import { Button } from "@heroui/button"
+import { useGameStore } from '@/store/gameStore'
 import Image from "next/image"
 import { useEffect, useState } from "react"
 
 
 const LevelOne = () => {
 
-     const { timeLeft,
-    player, 
-    contestants,
-    allFinished,
-    greenLightCounter,
-    greenLight,
-    onMoveStart,
-    onMoveStop,
-    setGameStarted,
-    gameStarted} = useGameLogic()
-        
+     const { gameStarted,setGameStarted} = useGameStore()
+  const resetGame = useGameStore(state => state.resetGame)
+  
     const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    resetGame()
+  }, [])
 
   useEffect(() => {
 
@@ -64,19 +60,8 @@ const LevelOne = () => {
   }
     
     return (<div>
-                <GameBoard
-                    timeLeft={timeLeft}
-                    player={player.current}
-                    contestants={contestants}
-                    allFinished={allFinished}
-                    onMoveStart={onMoveStart}
-                    onMoveStop={onMoveStop}
-                    />
-                    <DollMusic
-                        greenLight={greenLight.current}
-                        greenLightDuration={greenLightCounter.current}
-                        allPlayerFinished={allFinished}
-                        playerGameOver={player.current.gameOver} />
+                <GameBoard />
+                    <DollMusic />
             </div>)
 }
 

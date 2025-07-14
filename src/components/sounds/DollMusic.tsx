@@ -1,3 +1,4 @@
+import { useGameStore } from '@/store/gameStore'
 import { Howl } from 'howler'
 import { useEffect, useRef } from 'react'
 
@@ -8,12 +9,12 @@ type GameAudioProps = {
   playerGameOver: boolean
 }
 
-const DollMusic = (props: GameAudioProps) => {
+const DollMusic = () => {
 
-  const { greenLight,
-    greenLightDuration,
-    allPlayerFinished
-    ,playerGameOver } = props
+  const {   greenLight,
+       player,
+    greenLightCounter,
+  allFinished} = useGameStore()
 
      const greenLightSound = useRef<Howl | null>(null);
      const musicDuration = 5.5
@@ -26,7 +27,7 @@ const DollMusic = (props: GameAudioProps) => {
       });
     }
 
-     if (playerGameOver || allPlayerFinished) {
+     if (player.gameOver || allFinished) {
       
       greenLightSound.current.stop()
       return
@@ -34,7 +35,7 @@ const DollMusic = (props: GameAudioProps) => {
     
     if (greenLight) {
 
-      const greenLightSeconds = greenLightDuration / 60
+      const greenLightSeconds = greenLightCounter / 60
       const speed =  musicDuration / greenLightSeconds
       
       greenLightSound.current.rate(speed)
