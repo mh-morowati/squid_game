@@ -5,14 +5,6 @@ import PlayGround from "./PlayGround"
 import { Button } from "@heroui/button"
 import Image from "next/image"
 
-interface GameBoardProps {
-  timeLeft: number
-  player: any
-  contestants: any
-  allFinished: boolean
-  onMoveStart: () => void
-  onMoveStop: () => void
-}
 
 const GameBoard = () => {
 
@@ -25,7 +17,6 @@ const GameBoard = () => {
   
   return (
     <PlayGround>
-
        <h1
       className="absolute left-1/2 sm:text-2xl max-sm:left-1/3 bg-black text-red-600 p-1 rounded-lg"
     >

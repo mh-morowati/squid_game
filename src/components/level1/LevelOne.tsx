@@ -11,7 +11,6 @@ const LevelOne = () => {
 
      const { gameStarted,setGameStarted} = useGameStore()
   const resetGame = useGameStore(state => state.resetGame)
-  
     const [loading, setLoading] = useState(true)
 
   useEffect(() => {

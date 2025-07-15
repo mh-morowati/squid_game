@@ -1,32 +1,8 @@
 import { create } from 'zustand'
 import { Random } from 'random-js'
 import { raf } from 'rafz'
+import { ContestantType, GameState } from './types'
 
-export type ContestantType = {
-  x: number
-  y: number
-  name: string
-  gameOver: boolean
-  speed: number
-  winner: boolean
-}
-
-type GameState = {
-  timeLeft: number
-  gameStarted: boolean
-  allFinished: boolean
-  gameOver: boolean
-  greenLight: boolean
-  greenLightCounter: number
-  moving: boolean
-  player: ContestantType
-  contestants: ContestantType[]
-
-  setGameStarted: (value: boolean) => void
-  onMoveStart: () => void
-  onMoveStop: () => void
-  resetGame: () => void
-}
 
 export const useGameStore = create<GameState>((set, get) => {
   const random = new Random()
