@@ -33,7 +33,7 @@ export const useGameStore = create<GameState>((set, get) => {
 
   const generatePlayer = (): ContestantType => {
     const screenHeight = window.innerHeight
-    const playerSpeedFactor = screenHeight / 1000
+    const playerSpeedFactor = screenHeight / 1700
 
     return {
       x: Math.random() * (window.innerWidth - window.innerWidth * 0.052),
@@ -41,8 +41,8 @@ export const useGameStore = create<GameState>((set, get) => {
       name: 'player',
       gameOver: false,
       speed: playerSpeedFactor < 1.3
-        ? random.real(playerSpeedFactor * 1.7, playerSpeedFactor * 2.6, true)
-        : random.real(playerSpeedFactor * 2.1, playerSpeedFactor * 3, true),
+        ? random.real(playerSpeedFactor , playerSpeedFactor * 2, true)
+        : random.real(playerSpeedFactor * 1.7, playerSpeedFactor * 3, true),
       winner: false,
     }
   }
