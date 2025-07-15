@@ -3,6 +3,8 @@ import { Random } from 'random-js'
 import { raf } from 'rafz'
 import { ContestantType, GameState } from './types'
 
+// ToDo
+// players distance for lose game must be change and make responsive
 
 export const useGameStore = create<GameState>((set, get) => {
   const random = new Random()
@@ -83,7 +85,7 @@ export const useGameStore = create<GameState>((set, get) => {
         if (!c.winner && !c.gameOver) {
           if (greenLight) {
             c.y -= c.speed * delta
-          } else if (Math.random() * 1000 < 1 && c.y > 50) {
+          } else if (Math.random() * 1000 < 1 && c.y > 20) {
             c.gameOver = true
           }
         }
@@ -165,11 +167,11 @@ export const useGameStore = create<GameState>((set, get) => {
             clearInterval(timerId!)
             const updatedPlayer = get().player
             const updatedContestants = get().contestants.map(c => {
-              if (c.y > 50) c.gameOver = true
+              if (c.y > 20) c.gameOver = true
               return c
             })
 
-            if (updatedPlayer.y > 50) {
+            if (updatedPlayer.y > 20) {
               updatedPlayer.gameOver = true
             }
 

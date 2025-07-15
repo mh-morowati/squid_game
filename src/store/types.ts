@@ -23,3 +23,15 @@ export type GameState = {
   onMoveStop: () => void
   resetGame: () => void
 }
+
+export type Phase = "player-guess" | "computer-guess" | "game-over";
+
+export interface MarbleGameState {
+  playerMarbles: number;
+  computerMarbles: number;
+  phase: Phase;
+  message: string;
+  isGameOver: boolean;
+  updateState: (updates: Partial<MarbleGameState>) => void;
+  resetGame: () => void;
+}

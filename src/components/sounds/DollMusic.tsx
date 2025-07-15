@@ -1,4 +1,4 @@
-import { useGameStore } from '@/store/gameStore'
+import { useGameStore } from '@/store/redLightGreenLightStore'
 import { Howl } from 'howler'
 import { useEffect, useRef } from 'react'
 

@@ -2,7 +2,7 @@ import { Button } from "@heroui/button"
 import Image from 'next/image'
 import {  Modal,  ModalContent} from "@heroui/modal"
 import Link from "next/link"
-import { useGameStore } from "@/store/gameStore"
+import { useGameStore } from "@/store/redLightGreenLightStore"
 
 type Props = {
     isGameOver: boolean
