@@ -2,6 +2,7 @@ import { Button } from "@heroui/button"
 import Image from 'next/image'
 import {  Modal,  ModalContent} from "@heroui/modal"
 import Link from "next/link"
+import { useGameStore } from "@/store/gameStore"
 
 type Props = {
     isGameOver: boolean
@@ -11,6 +12,7 @@ type Props = {
 const Finish = (props: Props) => {
 
     const { isGameOver, allPlayerFinished } = props
+    const resetGame = useGameStore(state => state.resetGame)
     
     return (<>
         <div className="bg-red-600 absolute h-1 w-[100vw] sm:top-20 top-14">
@@ -26,6 +28,13 @@ const Finish = (props: Props) => {
             <Modal isOpen={true} size="full">
                 
                 <ModalContent>
+                    <Button
+                        onClick={() => resetGame()}
+                        className="absolute z-50 left-1/2 top-10"
+                        size="lg"
+                        color="primary">
+                        Play again
+                    </Button>
                      <Image 
                      src={"/lose-game123-ezgif.com-gif-to-webp-converter.webp"}
                       alt={""} 
@@ -39,6 +48,19 @@ const Finish = (props: Props) => {
         {allPlayerFinished && !isGameOver && (
             <Modal isOpen={true} size="full">
                 <ModalContent>
+                    <Button
+                        onClick={() => resetGame()}
+                        className="absolute z-50 left-1/3 top-10"
+                        size="lg"
+                        color="primary"
+                    >
+                        Play again
+                    </Button>
+                    <Link href={"marble-game"}>
+                     <Button className="absolute z-50 left-1/2 top-10" size="lg" color="success">
+                        Next Level
+                        </Button>
+                    </Link>
                     <Image src={"/winning-gif.gif"} alt={""} fill />
               </ModalContent>
             </Modal>
