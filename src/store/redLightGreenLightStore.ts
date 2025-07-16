@@ -1,10 +1,7 @@
 import { create } from 'zustand'
 import { Random } from 'random-js'
-import { raf } from 'rafz'
 import { ContestantType, GameState } from './types'
 
-// ToDo
-// players distance for lose game must be change and make responsive
 
 export const useGameStore = create<GameState>((set, get) => {
   const random = new Random()
@@ -18,7 +15,7 @@ export const useGameStore = create<GameState>((set, get) => {
       y: window.innerHeight * 0.89,
       name: 'player',
       gameOver: false,
-      speed: playerSpeedFactor < 1.3
+      speed: playerSpeedFactor < 0.65
         ? random.real(playerSpeedFactor , playerSpeedFactor * 2, true)
         : random.real(playerSpeedFactor * 1.7, playerSpeedFactor * 3, true),
       winner: false,
@@ -34,7 +31,7 @@ export const useGameStore = create<GameState>((set, get) => {
       y: screenHeight * 0.89,
       name: i.toString(),
       gameOver: false,
-      speed: speedFactor < 1.3
+      speed: speedFactor < 0.65
         ? random.real(speedFactor / 2, speedFactor, true)
         : random.real(speedFactor, speedFactor * 1.1, true),
       winner: false,

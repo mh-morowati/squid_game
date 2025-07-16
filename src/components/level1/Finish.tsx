@@ -29,7 +29,7 @@ const Finish = (props: Props) => {
                 
                 <ModalContent>
                     <Button
-                        onClick={() => resetGame()}
+                        onClick={resetGame}
                         className="absolute z-50 left-1/2 top-10"
                         size="lg"
                         color="primary">
@@ -49,7 +49,7 @@ const Finish = (props: Props) => {
             <Modal isOpen={true} size="full">
                 <ModalContent>
                     <Button
-                        onClick={() => resetGame()}
+                        onClick={resetGame}
                         className="absolute z-50 left-1/3 top-10"
                         size="lg"
                         color="primary"

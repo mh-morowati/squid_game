@@ -1,11 +1,11 @@
-import { create } from "zustand";
-import { MarbleGameState } from "./types";
+import { create } from "zustand"
+import { MarbleGameState } from "./types"
 
 export const useMarbleGameStore = create<MarbleGameState>((set) => ({
   playerMarbles: 10,
   computerMarbles: 10,
   phase: "player-guess",
-  message: "🤖 Computer hid marbles. Guess even or odd!",
+  message: "حریف دستش رو مخفی کرده حدس بزن زوج یا فرد🤖",
   isGameOver: false,
   updateState: (updates) => set((state) => ({ ...state, ...updates })),
   resetGame: () =>
@@ -13,7 +13,7 @@ export const useMarbleGameStore = create<MarbleGameState>((set) => ({
       playerMarbles: 10,
       computerMarbles: 10,
       phase: "player-guess",
-      message: "🤖 Computer hid marbles. Guess even or odd!",
+      message: "حریف دستش رو مخفی کرده حدس بزن زوج یا فرد🤖",
       isGameOver: false,
     }),
 }));
