@@ -94,10 +94,10 @@ const LevelTwo = () => {
 
         <div className="flex justify-between mb-4 text-lg font-medium">
                 <span className="text-blue-600 dark:text-blue-300">
-                    شما: {Math.max(0, playerMarbles)}
+                    شما: {Math.min(Math.max(0, playerMarbles), 20)}
           </span>
                 <span className="text-red-600 dark:text-red-300">
-                    حریف: {Math.max(0, computerMarbles)}
+                    حریف: {Math.min(Math.max(0, computerMarbles), 20)}
           </span>
         </div>
 
@@ -108,14 +108,23 @@ const LevelTwo = () => {
         ) : phase === "player-guess" ? (
           <>
             <label className="block mb-1">چه تعداد تیله شرط میذارید💭</label>
-            <input
-              type="number"
-              min={1}
-              max={Math.min(playerMarbles, 5)}
-              value={guessAmount}
-              onChange={(e) => setGuessAmount(Math.max(1, Math.min(5, +e.target.value)))}
-              className="w-full px-2 py-1 rounded border mb-3"
-            />
+              <div className="flex justify-center gap-3 mb-4">
+  {Array.from({ length: 5 }, (_, i) => {
+    const count = i + 1
+    const isActive = count <= guessAmount
+
+    return (
+      <div
+        key={count}
+        onClick={() => count <= playerMarbles && setGuessAmount(count)}
+        className={`w-10 h-10 rounded-full cursor-pointer transition duration-200 ${
+          isActive ? 'bg-blue-600 scale-105 shadow-md' : 'bg-blue-200'
+        }`}
+        title={`تیله${count}`}
+      />
+    )
+  })}
+</div>
 
             <label className="block mb-1">حدس بزنید دست حریف🤔</label>
             <div className="flex justify-center gap-4 mb-4">
@@ -138,16 +147,25 @@ const LevelTwo = () => {
         ) : (
           <>
             <label className="block mb-1">چه تعداد تیله مخفی میکنی🙈</label>
-            <input
-              type="number"
-              min={1}
-              max={Math.min(playerMarbles, 5)}
-              value={playerHide}
-              onChange={(e) =>
-                setPlayerHide(Math.max(1, Math.min(5, +e.target.value)))
-              }
-              className="w-full px-2 py-1 rounded border mb-4"
-            />
+                   <div className="flex justify-center gap-3 mb-4">
+  {Array.from({ length: 5 }, (_, i) => {
+    const count = i + 1
+    const isActive = count <= playerHide
+
+    return (
+      <div
+        key={count}
+        onClick={() => count <= playerMarbles && setPlayerHide(count)}
+        className={`w-10 h-10 rounded-full cursor-pointer transition duration-200 ${
+          isActive ? 'bg-blue-600 scale-105 shadow-md' : 'bg-blue-200'
+        }`}
+        title={`${count}تیله`}
+      />
+    )
+  })}
+</div>
+
+
             <Button onClick={handleComputerGuess}>Confirm Hide</Button>
           </>
         )}
