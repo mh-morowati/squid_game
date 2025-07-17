@@ -1,30 +1,24 @@
-import { useGameStore } from '@/store/gameStore'
+import { useGameStore } from '@/store/redLightGreenLightStore'
 import { Howl } from 'howler'
 import { useEffect, useRef } from 'react'
 
-type GameAudioProps = {
-  greenLight: boolean
-  greenLightDuration: number
-  allPlayerFinished: boolean
-  playerGameOver: boolean
-}
 
 const DollMusic = () => {
 
-  const {   greenLight,
+  const {greenLight,
        player,
     greenLightCounter,
   allFinished} = useGameStore()
 
-     const greenLightSound = useRef<Howl | null>(null);
-     const musicDuration = 5.5
+     const greenLightSound = useRef<Howl | null>(null)
+  const musicDuration = 5.5
+  
   useEffect(() => {
-
     if (!greenLightSound.current) {
       greenLightSound.current = new Howl({
         src: ['/sounds/arosak-sound.mp3'],
         loop: false, 
-      });
+      })
     }
 
      if (player.gameOver || allFinished) {

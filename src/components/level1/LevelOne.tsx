@@ -2,7 +2,7 @@
 import GameBoard from "./GameBoard"
 import DollMusic from "../sounds/DollMusic"
 import { Button } from "@heroui/button"
-import { useGameStore } from '@/store/gameStore'
+import { useGameStore } from '@/store/redLightGreenLightStore'
 import Image from "next/image"
 import { useEffect, useState } from "react"
 
@@ -11,7 +11,6 @@ const LevelOne = () => {
 
      const { gameStarted,setGameStarted} = useGameStore()
   const resetGame = useGameStore(state => state.resetGame)
-  
     const [loading, setLoading] = useState(true)
 
   useEffect(() => {

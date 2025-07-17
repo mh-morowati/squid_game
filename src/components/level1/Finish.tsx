@@ -2,7 +2,7 @@ import { Button } from "@heroui/button"
 import Image from 'next/image'
 import {  Modal,  ModalContent} from "@heroui/modal"
 import Link from "next/link"
-import { useGameStore } from "@/store/gameStore"
+import { useGameStore } from "@/store/redLightGreenLightStore"
 
 type Props = {
     isGameOver: boolean
@@ -29,7 +29,7 @@ const Finish = (props: Props) => {
                 
                 <ModalContent>
                     <Button
-                        onClick={() => resetGame()}
+                        onClick={resetGame}
                         className="absolute z-50 left-1/2 top-10"
                         size="lg"
                         color="primary">
@@ -49,23 +49,18 @@ const Finish = (props: Props) => {
             <Modal isOpen={true} size="full">
                 <ModalContent>
                     <Button
-<<<<<<< Updated upstream:src/components/Finish.tsx
-                        onClick={() => resetGame()}
-                        className="absolute z-50 left-1/3 top-10"
-=======
                         onClick={resetGame}
                         className="absolute z-50 sm:left-1/3 top-10"
->>>>>>> Stashed changes:src/components/level1/Finish.tsx
                         size="lg"
                         color="primary"
                     >
                         Play again
                     </Button>
-                    <Link
+                       <Link
                         href={"/marble-game"}
                         className="absolute z-50 left-1/2 top-10 text-white bg-green-600 py-3 rounded-xl px-6">
                         Next Level
-                   </Link>
+                    </Link>
                     <Image src={"/winning-gif.gif"} alt={""} fill />
               </ModalContent>
             </Modal>

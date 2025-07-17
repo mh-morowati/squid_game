@@ -1,7 +1,9 @@
+import LevelTwo from "@/components/level2/LevelTwo"
 
 
- const MarbleGame = () => {
-    return (<>marble-game</>)
+const MarbleGame = () => {
+     
+    return (<LevelTwo/>)
 }
 
 export default MarbleGame

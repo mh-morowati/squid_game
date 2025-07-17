@@ -147,7 +147,7 @@ const LevelTwo = () => {
         ) : (
           <>
             <label className="block mb-1">چه تعداد تیله مخفی میکنی🙈</label>
-         <div className="flex justify-center gap-3 mb-4">
+                   <div className="flex justify-center gap-3 mb-4">
   {Array.from({ length: 5 }, (_, i) => {
     const count = i + 1
     const isActive = count <= playerHide
@@ -164,6 +164,7 @@ const LevelTwo = () => {
     )
   })}
 </div>
+
 
             <Button onClick={handleComputerGuess}>Confirm Hide</Button>
           </>

@@ -1,32 +1,7 @@
 import { create } from 'zustand'
 import { Random } from 'random-js'
-import { raf } from 'rafz'
+import { ContestantType, GameState } from './types'
 
-export type ContestantType = {
-  x: number
-  y: number
-  name: string
-  gameOver: boolean
-  speed: number
-  winner: boolean
-}
-
-type GameState = {
-  timeLeft: number
-  gameStarted: boolean
-  allFinished: boolean
-  gameOver: boolean
-  greenLight: boolean
-  greenLightCounter: number
-  moving: boolean
-  player: ContestantType
-  contestants: ContestantType[]
-
-  setGameStarted: (value: boolean) => void
-  onMoveStart: () => void
-  onMoveStop: () => void
-  resetGame: () => void
-}
 
 export const useGameStore = create<GameState>((set, get) => {
   const random = new Random()
@@ -40,7 +15,7 @@ export const useGameStore = create<GameState>((set, get) => {
       y: window.innerHeight * 0.89,
       name: 'player',
       gameOver: false,
-      speed: playerSpeedFactor < 1.3
+      speed: playerSpeedFactor < 0.65
         ? random.real(playerSpeedFactor , playerSpeedFactor * 2, true)
         : random.real(playerSpeedFactor * 1.7, playerSpeedFactor * 3, true),
       winner: false,
@@ -56,7 +31,7 @@ export const useGameStore = create<GameState>((set, get) => {
       y: screenHeight * 0.89,
       name: i.toString(),
       gameOver: false,
-      speed: speedFactor < 1.3
+      speed: speedFactor < 0.65
         ? random.real(speedFactor / 2, speedFactor, true)
         : random.real(speedFactor, speedFactor * 1.1, true),
       winner: false,
@@ -107,7 +82,7 @@ export const useGameStore = create<GameState>((set, get) => {
         if (!c.winner && !c.gameOver) {
           if (greenLight) {
             c.y -= c.speed * delta
-          } else if (Math.random() * 1000 < 1 && c.y > 50) {
+          } else if (Math.random() * 1000 < 1 && c.y > 20) {
             c.gameOver = true
           }
         }
@@ -189,11 +164,11 @@ export const useGameStore = create<GameState>((set, get) => {
             clearInterval(timerId!)
             const updatedPlayer = get().player
             const updatedContestants = get().contestants.map(c => {
-              if (c.y > 50) c.gameOver = true
+              if (c.y > 20) c.gameOver = true
               return c
             })
 
-            if (updatedPlayer.y > 50) {
+            if (updatedPlayer.y > 20) {
               updatedPlayer.gameOver = true
             }
 
