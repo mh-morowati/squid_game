@@ -18,7 +18,11 @@ const LevelOne = () => {
     "/player.png",
     "/tree_prev_ui.png",
     "/lose-game123-ezgif.com-gif-to-webp-converter.webp",
-    "/winning-gif.gif"
+      "/winning-gif.gif",
+      "/doll.png",
+      "/kill-blood.png",
+      "/squid-game-gif-6.gif",
+    "/squid-game-start.jpg"
   ])
   }, [])
   
