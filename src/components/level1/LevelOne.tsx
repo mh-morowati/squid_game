@@ -14,6 +14,15 @@ const LevelOne = () => {
     const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    preloadImages([
+    "/player.png",
+    "/tree_prev_ui.png",
+    "/lose-game123-ezgif.com-gif-to-webp-converter.webp",
+    "/winning-gif.gif"
+  ])
+  }, [])
+  
+  useEffect(() => {
     resetGame()
   }, [])
 
@@ -26,6 +35,14 @@ const LevelOne = () => {
     return () => clearTimeout(timer)
 
   }, [])
+
+  const preloadImages = (srcArray: string[]) => {
+  srcArray.forEach((src) => {
+    const img = new window.Image() as HTMLImageElement
+    img.src = src           // 👈 browser starts loading it
+  })
+}
+
 
   if (loading || !gameStarted) {
     return (
