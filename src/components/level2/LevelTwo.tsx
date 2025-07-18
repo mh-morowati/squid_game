@@ -32,8 +32,8 @@ const LevelTwo = () => {
       newPlayer += guessAmount
       newComputer -= guessAmount
     } else {
-      newPlayer -= compHidden
-      newComputer += compHidden
+      newPlayer -= guessAmount
+      newComputer += guessAmount
     }
 
     const gameOver = newPlayer <= 0 || newComputer <= 0
@@ -45,7 +45,7 @@ const LevelTwo = () => {
       isGameOver: gameOver,
       message: correct
         ? `شما درست حدس زدید و ${guessAmount}تیله از حریف برنده شدید✅`
-        : `شما اشتباه حدس زدید و ${compHidden} تیله به حریف باختید❌`,
+        : `شما اشتباه حدس زدید و ${guessAmount} تیله به حریف باختید❌`,
     })
 
     setGuessAmount(1)
@@ -65,8 +65,8 @@ const LevelTwo = () => {
       newComputer += compBet
       newPlayer -= compBet
     } else {
-      newComputer -= playerHide
-      newPlayer += playerHide
+      newComputer -= compBet
+      newPlayer += compBet
     }
 
     const gameOver = newPlayer <= 0 || newComputer <= 0
@@ -78,7 +78,7 @@ const LevelTwo = () => {
       isGameOver: gameOver,
       message: correct
         ? `حریف به درستی ${compGuess} حدس زد و ${compBet} تیله از شما برنده شد🤖`
-        : ` حریف ${compGuess} حدس زد و ${playerHide}  تیله به شما باخت 🤖`,
+        : ` حریف ${compGuess} حدس زد و ${compBet}  تیله به شما باخت 🤖`,
     })
 
     setPlayerHide(1)
