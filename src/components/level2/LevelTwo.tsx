@@ -166,7 +166,9 @@ const LevelTwo = () => {
 </div>
 
 
-            <Button onClick={handleComputerGuess}>Confirm Hide</Button>
+                <Button onClick={handleComputerGuess}>
+                  Confirm Hide
+                </Button>
           </>
         )}
       </div>
